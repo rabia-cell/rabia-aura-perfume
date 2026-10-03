@@ -1,0 +1,2516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aura Perfumes — Fine Fragrance House</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+ --cream:#f6f0e4;
+ --sand:#ece3d0;
+ --ink:#16130f;
+ --gold:#b08d4a;
+ --gold-l:#d7bd84;
+ --mut:#6d655a;
+ --line:#d9cfba;
+ --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+ --sans:'Jost','Helvetica Neue',Arial,sans-serif
+}
+
+*{box-sizing:border-box;margin:0}
+
+html{
+ scroll-behavior:smooth;
+ scroll-padding-top:76px
+}
+
+body{
+ background:var(--cream);
+ color:var(--ink);
+ font:300 16px/1.65 var(--sans)
+}
+
+img,svg{display:block;max-width:100%}
+
+button{
+ font:inherit;
+ color:inherit;
+ cursor:pointer;
+ background:none;
+ border:0
+}
+
+a{
+ color:inherit;
+ text-decoration:none
+}
+
+:focus-visible{
+ outline:2px solid var(--gold);
+ outline-offset:3px
+}
+
+.wrap{
+ max-width:1180px;
+ margin:0 auto;
+ padding:0 22px
+}
+
+h1,h2,h3{
+ font-family:var(--serif);
+ font-weight:500;
+ line-height:1.1
+}
+
+h2{
+ font-size:clamp(2rem,4vw,2.9rem);
+ margin-bottom:10px
+}
+
+section{padding:72px 0}
+
+.sub{
+ color:var(--mut);
+ max-width:52ch;
+ margin-bottom:34px
+}
+
+.btn{
+ display:inline-block;
+ background:var(--ink);
+ color:var(--cream);
+ padding:14px 30px;
+ letter-spacing:.08em;
+ font-size:.85rem;
+ border:1px solid var(--ink);
+ transition:.25s
+}
+
+.btn:hover{
+ background:var(--gold);
+ border-color:var(--gold)
+}
+
+.btn.ghost{
+ background:transparent;
+ color:var(--ink)
+}
+
+.btn.ghost:hover{
+ background:var(--ink);
+ color:var(--cream);
+ border-color:var(--ink)
+}
+
+/* HEADER */
+
+header{
+ position:sticky;
+ top:0;
+ z-index:20;
+ background:rgba(246,240,228,.94);
+ backdrop-filter:blur(8px);
+ border-bottom:1px solid var(--line)
+}
+
+.bar{
+ display:flex;
+ align-items:center;
+ gap:22px;
+ height:68px
+}
+
+.logo{
+ display:flex;
+ align-items:center;
+ gap:10px;
+ font-family:var(--serif);
+ font-size:1.7rem;
+ letter-spacing:.32em;
+ font-weight:500
+}
+
+nav{
+ margin-left:auto;
+ display:flex;
+ gap:28px;
+ font-size:.9rem
+}
+
+nav a:hover{color:var(--gold)}
+
+.icons{
+ display:flex;
+ gap:6px;
+ align-items:center
+}
+
+.ib{
+ width:42px;
+ height:42px;
+ display:grid;
+ place-items:center;
+ position:relative
+}
+
+.ib:hover{color:var(--gold)}
+
+.badge{
+ position:absolute;
+ top:3px;
+ right:1px;
+ background:var(--gold);
+ color:#fff;
+ font-size:.68rem;
+ min-width:18px;
+ height:18px;
+ border-radius:9px;
+ display:grid;
+ place-items:center
+}
+
+#sbar{
+ display:none;
+ border-top:1px solid var(--line);
+ padding:12px 0
+}
+
+#sbar.on{display:block}
+
+#q{
+ width:100%;
+ padding:12px 16px;
+ border:1px solid var(--line);
+ background:#fffaf0;
+ font:inherit
+}
+
+/* HERO */
+
+.hero{
+ background:var(--ink);
+ color:var(--cream);
+ padding:0;
+ overflow:hidden
+}
+
+.hero .wrap{
+ display:grid;
+ grid-template-columns:1.1fr .9fr;
+ align-items:center;
+ gap:30px;
+ min-height:600px
+}
+
+.hero h1{
+ font-size:clamp(2.8rem,6.5vw,5.2rem);
+ font-weight:400;
+ margin-bottom:20px
+}
+
+.hero h1 em{color:var(--gold-l)}
+
+.hero p{
+ color:#cfc6b4;
+ max-width:44ch;
+ margin-bottom:32px
+}
+
+.hero .btn{
+ background:var(--gold);
+ border-color:var(--gold);
+ color:var(--ink);
+ margin-right:10px
+}
+
+.hero .btn.ghost{
+ background:transparent;
+ color:var(--cream);
+ border-color:#6b624f
+}
+
+.hero .btn:hover{
+ background:var(--cream);
+ border-color:var(--cream);
+ color:var(--ink)
+}
+
+.stage{
+ position:relative;
+ display:grid;
+ place-items:center;
+ padding:30px 0
+}
+
+.stage:before{
+ content:"";
+ position:absolute;
+ width:min(420px,90%);
+ aspect-ratio:1;
+ border-radius:50%;
+ border:1px solid #5b5136;
+ box-shadow:0 0 0 26px rgba(176,141,74,.06)
+}
+
+.stage svg{
+ width:min(300px,70%);
+ position:relative;
+ filter:drop-shadow(0 30px 40px rgba(0,0,0,.5))
+}
+
+/* CATEGORIES */
+
+.cats{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:16px
+}
+
+.cat{
+ background:var(--sand);
+ padding:30px 22px;
+ text-align:left;
+ border:1px solid var(--line);
+ transition:.25s
+}
+
+.cat:hover{
+ border-color:var(--gold);
+ transform:translateY(-3px)
+}
+
+.cat h3{font-size:1.7rem}
+.cat span{font-size:.88rem;color:var(--mut)}
+
+/* PRODUCTS */
+
+.filters{
+ display:flex;
+ flex-wrap:wrap;
+ gap:10px;
+ margin-bottom:28px;
+ align-items:center
+}
+
+.chip{
+ padding:8px 20px;
+ border:1px solid var(--line);
+ font-size:.88rem;
+ transition:.2s
+}
+
+.chip.on,.chip:hover{
+ background:var(--ink);
+ color:var(--cream);
+ border-color:var(--ink)
+}
+
+.grid{
+ display:grid;
+ grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+ gap:24px
+}
+
+.card{
+ background:#fbf7ee;
+ border:1px solid var(--line);
+ display:flex;
+ flex-direction:column
+}
+
+.thumb{
+ background:linear-gradient(160deg,var(--sand),#e4d8bf);
+ padding:26px;
+ cursor:pointer;
+ position:relative
+}
+
+.thumb svg{
+ height:210px;
+ margin:auto
+}
+
+.tag{
+ position:absolute;
+ top:12px;
+ left:12px;
+ background:var(--ink);
+ color:var(--gold-l);
+ font-size:.72rem;
+ padding:3px 10px;
+ letter-spacing:.06em
+}
+
+.info{
+ padding:18px 20px 22px;
+ display:flex;
+ flex-direction:column;
+ gap:4px;
+ flex:1
+}
+
+.info small{
+ color:var(--mut);
+ font-size:.8rem
+}
+
+.info h3{
+ font-size:1.5rem;
+ cursor:pointer
+}
+
+.row{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ margin-top:auto;
+ padding-top:12px
+}
+
+.price{
+ font-family:var(--serif);
+ font-size:1.25rem;
+ font-weight:600
+}
+
+.add{
+ border:1px solid var(--ink);
+ padding:7px 16px;
+ font-size:.82rem
+}
+
+.add:hover{
+ background:var(--ink);
+ color:var(--cream)
+}
+
+.empty{
+ grid-column:1/-1;
+ text-align:center;
+ padding:50px 0;
+ color:var(--mut)
+}
+
+/* ABOUT */
+
+.about{background:var(--sand)}
+
+.about .wrap{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:50px;
+ align-items:center
+}
+
+.about p{
+ margin-bottom:14px;
+ color:#3d372e
+}
+
+.vals{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:14px;
+ margin-top:20px
+}
+
+.vals div{
+ border-top:1px solid var(--gold);
+ padding-top:10px;
+ font-size:.9rem
+}
+
+.vals b{
+ display:block;
+ font-family:var(--serif);
+ font-size:1.2rem;
+ font-weight:500
+}
+
+.frame{
+ border:1px solid var(--gold);
+ padding:14px;
+ background:var(--cream)
+}
+
+.frame>div{
+ background:var(--ink);
+ display:grid;
+ place-items:center;
+ padding:36px
+}
+
+.frame svg{height:260px}
+
+/* FAQ */
+
+.faq{max-width:760px}
+
+details{
+ border-bottom:1px solid var(--line);
+ padding:18px 0
+}
+
+summary{
+ cursor:pointer;
+ font-family:var(--serif);
+ font-size:1.3rem;
+ list-style:none;
+ display:flex;
+ justify-content:space-between
+}
+
+summary::after{
+ content:"+";
+ color:var(--gold)
+}
+
+details[open] summary::after{content:"–"}
+
+details p{
+ margin-top:10px;
+ color:var(--mut)
+}
+
+/* PRODUCT PAGE */
+
+#pdp{
+ display:none;
+ padding:30px 0 80px;
+ min-height:75vh
+}
+
+#pdp.on{display:block}
+
+.back{
+ display:inline-block;
+ margin-bottom:24px;
+ font-size:.9rem;
+ border-bottom:1px solid var(--gold)
+}
+
+.back:hover{color:var(--gold)}
+
+.pg{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:50px;
+ align-items:center
+}
+
+.pg .thumb{
+ cursor:default;
+ display:grid;
+ place-items:center;
+ padding:50px
+}
+
+.pg .thumb svg{height:420px}
+
+.pg h1{
+ font-size:clamp(2.4rem,5vw,3.6rem);
+ margin:4px 0 8px
+}
+
+.notes{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:10px;
+ margin:18px 0
+}
+
+.notes div{
+ border-top:1px solid var(--gold);
+ padding-top:8px;
+ font-size:.88rem
+}
+
+.notes b{
+ display:block;
+ font-family:var(--serif);
+ font-size:1.1rem;
+ font-weight:500
+}
+
+.sizes{
+ display:flex;
+ gap:10px;
+ margin:8px 0 18px
+}
+
+.sz{
+ border:1px solid var(--line);
+ padding:8px 18px;
+ font-size:.9rem
+}
+
+.sz.on{
+ border-color:var(--ink);
+ background:var(--ink);
+ color:var(--cream)
+}
+
+.qty{
+ display:inline-flex;
+ align-items:center;
+ border:1px solid var(--line)
+}
+
+.qty button{
+ width:32px;
+ height:32px
+}
+
+.qty button:hover{background:var(--sand)}
+
+.qty span{
+ min-width:30px;
+ text-align:center
+}
+
+/* CART */
+
+.ov{
+ position:fixed;
+ inset:0;
+ background:rgba(22,19,15,.55);
+ z-index:30;
+ opacity:0;
+ pointer-events:none;
+ transition:.25s
+}
+
+.ov.on{
+ opacity:1;
+ pointer-events:auto
+}
+
+#drawer{
+ position:fixed;
+ z-index:40;
+ top:0;
+ right:0;
+ height:100%;
+ width:min(420px,100%);
+ background:var(--cream);
+ transform:translateX(100%);
+ transition:.3s;
+ display:flex;
+ flex-direction:column
+}
+
+#drawer.on{transform:none}
+
+.dh{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ padding:16px 22px;
+ border-bottom:1px solid var(--line)
+}
+
+.dh h3{font-size:1.7rem}
+
+#items{
+ flex:1;
+ overflow:auto;
+ padding:6px 22px
+}
+
+.it{
+ display:grid;
+ grid-template-columns:62px 1fr auto;
+ gap:14px;
+ padding:16px 0;
+ border-bottom:1px solid var(--line);
+ align-items:center
+}
+
+.it .mini{
+ background:var(--sand);
+ padding:6px
+}
+
+.it .mini svg{
+ height:70px;
+ margin:auto
+}
+
+.it h4{
+ font-family:var(--serif);
+ font-size:1.2rem;
+ font-weight:500;
+ line-height:1.2
+}
+
+.it small{
+ color:var(--mut);
+ display:block
+}
+
+.rm{
+ font-size:.78rem;
+ color:var(--mut);
+ text-decoration:underline;
+ margin-top:4px
+}
+
+.rm:hover{color:#9b2c2c}
+
+.df{
+ padding:18px 22px;
+ border-top:1px solid var(--line);
+ background:#fbf7ee
+}
+
+.tot{
+ display:flex;
+ justify-content:space-between;
+ font-family:var(--serif);
+ font-size:1.5rem;
+ margin-bottom:12px
+}
+
+.df .btn{width:100%}
+
+/* CHECKOUT PAGE */
+
+#checkoutPage{
+ display:none;
+ padding:35px 0 80px;
+ min-height:75vh
+}
+
+#checkoutPage.on{display:block}
+
+.checkout-head{
+ margin-bottom:35px
+}
+
+.checkout-head h1{
+ font-size:clamp(2.6rem,5vw,4rem);
+ margin-bottom:8px
+}
+
+.checkout-head p{
+ color:var(--mut)
+}
+
+.checkout-grid{
+ display:grid;
+ grid-template-columns:1.1fr .9fr;
+ gap:50px;
+ align-items:start
+}
+
+.checkout-box{
+ background:#fbf7ee;
+ border:1px solid var(--line);
+ padding:28px
+}
+
+.checkout-box h2{
+ font-size:2rem;
+ margin-bottom:22px
+}
+
+.form-row{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:16px
+}
+
+.field{
+ margin-bottom:17px
+}
+
+.field label{
+ display:block;
+ font-size:.85rem;
+ margin-bottom:6px
+}
+
+.field input,
+.field textarea{
+ width:100%;
+ padding:13px 14px;
+ border:1px solid var(--line);
+ background:var(--cream);
+ color:var(--ink);
+ font:inherit;
+ outline:none
+}
+
+.field input:focus,
+.field textarea:focus{
+ border-color:var(--gold)
+}
+
+.field textarea{
+ min-height:100px;
+ resize:vertical
+}
+
+.order-line{
+ display:grid;
+ grid-template-columns:54px 1fr auto;
+ gap:13px;
+ align-items:center;
+ padding:14px 0;
+ border-bottom:1px solid var(--line)
+}
+
+.order-line .mini{
+ background:var(--sand);
+ padding:5px
+}
+
+.order-line .mini svg{
+ height:58px;
+ margin:auto
+}
+
+.order-line h4{
+ font-family:var(--serif);
+ font-size:1.15rem;
+ font-weight:500
+}
+
+.order-line small{
+ color:var(--mut)
+}
+
+.checkout-total{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ padding-top:20px;
+ font-family:var(--serif);
+ font-size:1.7rem
+}
+
+.demo-note{
+ background:#f1e4c3;
+ color:#7a5a1c;
+ padding:12px 14px;
+ font-size:.85rem;
+ margin:18px 0
+}
+
+#orderSuccess{
+ display:none;
+ margin-top:18px;
+ padding:15px;
+ border:1px solid var(--gold);
+ background:var(--sand)
+}
+
+/* FOOTER */
+
+footer{
+ background:var(--ink);
+ color:#cfc6b4;
+ padding:56px 0 24px
+}
+
+.fg{
+ display:grid;
+ grid-template-columns:1.5fr 1fr 1fr;
+ gap:34px;
+ margin-bottom:34px
+}
+
+footer h4{
+ font-family:var(--serif);
+ font-size:1.25rem;
+ color:var(--gold-l);
+ font-weight:500;
+ margin-bottom:10px
+}
+
+footer a{
+ display:block;
+ font-size:.9rem;
+ margin-bottom:4px
+}
+
+footer a:hover{color:var(--gold-l)}
+
+.note{
+ border-top:1px solid #3a342a;
+ padding-top:18px;
+ font-size:.82rem;
+ display:flex;
+ justify-content:space-between;
+ flex-wrap:wrap;
+ gap:8px
+}
+
+.note b{
+ color:var(--gold-l);
+ font-weight:400
+}
+
+#toast{
+ position:fixed;
+ bottom:22px;
+ left:50%;
+ transform:translate(-50%,30px);
+ background:var(--ink);
+ color:var(--cream);
+ padding:11px 22px;
+ font-size:.9rem;
+ z-index:60;
+ opacity:0;
+ transition:.3s;
+ pointer-events:none
+}
+
+#toast.on{
+ opacity:1;
+ transform:translate(-50%,0)
+}
+
+@media(max-width:860px){
+
+ nav{display:none}
+
+ .icons{margin-left:auto}
+
+ .hero .wrap{
+  grid-template-columns:1fr;
+  min-height:0;
+  padding-top:40px;
+  padding-bottom:30px
+ }
+
+ .cats{grid-template-columns:1fr 1fr}
+
+ .about .wrap,.fg{
+  grid-template-columns:1fr
+ }
+
+ section{padding:54px 0}
+
+ .thumb svg{height:190px}
+
+ .pg{
+  grid-template-columns:1fr;
+  gap:24px
+ }
+
+ .pg .thumb{padding:30px}
+
+ .pg .thumb svg{height:260px}
+
+ .checkout-grid{
+  grid-template-columns:1fr;
+  gap:25px
+ }
+
+ .form-row{
+  grid-template-columns:1fr;
+  gap:0
+ }
+}
+
+
+/* ADMIN LOGIN */
+#loginPage{display:none;min-height:100vh;padding:70px 20px;background:radial-gradient(circle at top right,rgba(176,141,74,.18),transparent 35%),var(--cream)}
+#loginPage.on{display:grid;place-items:center}
+.login-box{width:min(430px,100%);background:#fffaf0;border:1px solid var(--line);padding:42px;box-shadow:0 20px 60px rgba(22,19,15,.10)}
+.login-logo{text-align:center;font-family:var(--serif);font-size:2rem;letter-spacing:.28em;color:var(--gold);margin-bottom:6px}
+.login-box h1{text-align:center;font-size:2.5rem;margin-bottom:6px}
+.login-sub{text-align:center;color:var(--mut);margin-bottom:30px}
+.login-field{margin-bottom:18px}
+.login-field label{display:block;margin-bottom:6px;font-size:.88rem}
+.login-field input{width:100%;padding:13px 14px;border:1px solid var(--line);background:var(--cream);color:var(--ink);font:inherit;outline:none}
+.login-field input:focus{border-color:var(--gold)}
+.login-password{position:relative}.login-password input{padding-right:70px}
+.show-pass{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:.78rem;color:var(--mut)}
+.login-btn{width:100%;margin-top:5px}
+.login-error{display:none;margin-top:15px;padding:10px;background:#f7d4d1;color:#a02e28;font-size:.85rem;text-align:center}
+.login-error.on{display:block}.login-back{display:block;text-align:center;margin-top:20px;font-size:.85rem;color:var(--mut)}.login-back:hover{color:var(--gold)}
+
+/* ADMIN DASHBOARD */
+#adminPage{display:none;padding:0;min-height:100vh;background:#f8f3e9}
+#adminPage.on{display:block}
+.admin-shell{display:grid;grid-template-columns:230px 1fr;min-height:100vh}
+.admin-side{background:#171512;color:#f6f0e4;padding:26px 18px}
+.admin-brand{font-family:var(--serif);font-size:1.8rem;letter-spacing:.22em;color:var(--gold-l);padding:0 10px 26px;border-bottom:1px solid #39342b}
+.admin-brand small{display:block;font:300 .78rem var(--sans);letter-spacing:.08em;color:#cfc6b4;margin-top:3px}
+.admin-menu{display:grid;gap:6px;margin-top:22px}
+.admin-menu button,.admin-menu a{display:flex;gap:12px;width:100%;padding:12px 13px;color:#eee5d4;text-align:left;border-left:3px solid transparent}
+.admin-menu button:hover,.admin-menu button.on,.admin-menu a:hover{background:#302a20;border-left-color:var(--gold);color:#fff}
+.admin-view-store{margin-top:28px;border-top:1px solid #39342b;padding-top:18px}
+.admin-main{padding:28px}.admin-top{display:flex;justify-content:space-between;gap:18px;align-items:center;margin-bottom:24px}
+.admin-search{flex:1;max-width:620px;padding:12px 16px;border:1px solid var(--line);background:#fffaf0;font:inherit}
+.admin-user{display:flex;align-items:center;gap:10px}.admin-avatar{width:38px;height:38px;border-radius:50%;background:var(--ink);color:var(--cream);display:grid;place-items:center}
+.admin-heading{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:22px}.admin-heading h1{font-size:2.7rem}.admin-heading p{color:var(--mut)}
+.admin-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
+.stat-card,.admin-card{background:#fffaf0;border:1px solid var(--line);padding:20px}.stat-card small{color:var(--mut)}.stat-card strong{display:block;font:500 2.2rem var(--serif);margin-top:4px}
+.admin-grid{display:grid;grid-template-columns:1.1fr .75fr .9fr;gap:14px;margin-bottom:14px}.admin-card h2{font-size:1.55rem;margin-bottom:18px}
+.chart{height:210px;display:flex;align-items:end;gap:12px;border-left:1px solid var(--line);border-bottom:1px solid var(--line);padding:10px 12px}.chart-col{flex:1;display:flex;flex-direction:column;justify-content:end;align-items:center;height:100%;gap:6px}.chart-bar{width:100%;max-width:36px;background:linear-gradient(var(--gold-l),var(--gold));min-height:8px}.chart-col small{font-size:.68rem;color:var(--mut)}
+.stock-ring{width:160px;height:160px;border-radius:50%;margin:10px auto 18px;display:grid;place-items:center;position:relative;background:conic-gradient(#4fa66b 0 var(--stock-pct),#e36b65 var(--stock-pct) 100%)}.stock-ring:after{content:"";position:absolute;width:105px;height:105px;background:#fffaf0;border-radius:50%}.stock-ring div{position:relative;z-index:1;text-align:center}.stock-ring strong{display:block;font:500 2rem var(--serif)}
+.trending-list{display:grid;gap:10px}.trend{display:grid;grid-template-columns:28px 48px 1fr;gap:10px;align-items:center;padding-bottom:10px;border-bottom:1px solid var(--line)}.trend .mini{background:var(--sand);padding:4px}.trend .mini svg{height:46px;margin:auto}.trend b{font-family:var(--serif);font-size:1.05rem;font-weight:500}.trend small{display:block;color:var(--mut)}
+.admin-bottom{display:grid;grid-template-columns:1.15fr .85fr;gap:14px}.admin-table{width:100%;border-collapse:collapse;font-size:.82rem}.admin-table th,.admin-table td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line)}.admin-table th{background:#f4eddf;font-weight:500}
+.status{display:inline-block;padding:3px 9px;border-radius:6px;font-size:.75rem}.status.pending{background:#f7e2ad;color:#8a5b08}.status.in{background:#d9ecd9;color:#246a36}.status.out{background:#f7d4d1;color:#a02e28}
+.stock-product{display:flex;align-items:center;gap:8px}.stock-product .mini{width:34px;background:var(--sand);padding:3px}.stock-product .mini svg{height:34px}.stock-edit{width:64px;padding:5px;border:1px solid var(--line);background:#fffaf0;font:inherit}
+@media(max-width:1050px){.admin-stats{grid-template-columns:repeat(2,1fr)}.admin-grid,.admin-bottom{grid-template-columns:1fr}.admin-shell{grid-template-columns:1fr}}
+@media(max-width:620px){.admin-main{padding:18px}.admin-stats{grid-template-columns:1fr}.admin-heading,.admin-top{align-items:flex-start;flex-direction:column}.admin-search{width:100%}}
+
+@media(prefers-reduced-motion:reduce){
+ *{
+  transition:none!important;
+  scroll-behavior:auto!important
+ }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+ <div class="wrap">
+  <div class="bar">
+
+   <a class="logo" href="#top" aria-label="Aura Perfumes home">
+    <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="#b08d4a" stroke-width="1.2">
+     <circle cx="13" cy="13" r="11"/>
+     <circle cx="13" cy="13" r="5.5"/>
+     <path d="M13 2v6M13 18v6"/>
+    </svg>
+    AURA
+   </a>
+
+   <nav aria-label="Main">
+    <a href="#shop">Shop</a>
+    <a href="#collections">Collections</a>
+    <a href="#about">Our story</a>
+    <a href="#faq">FAQs</a>
+   </nav>
+
+   <div class="icons">
+
+    <button class="ib" id="sbtn" aria-label="Search">
+     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+      <circle cx="11" cy="11" r="7"/>
+      <path d="m20 20-4-4"/>
+     </svg>
+    </button>
+
+    <button class="ib" id="cbtn" aria-label="Open cart">
+     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+      <path d="M5 8h14l-1 12H6z"/>
+      <path d="M9 8V6a3 3 0 0 1 6 0v2"/>
+     </svg>
+     <span class="badge" id="cnt">0</span>
+    </button>
+
+   </div>
+  </div>
+
+  <div id="sbar">
+   <input id="q" type="search" placeholder="Search by name, note or category (e.g. oud, rose)" aria-label="Search perfumes">
+  </div>
+
+ </div>
+</header>
+
+
+<!-- MAIN STORE -->
+
+<main id="top">
+
+<section class="hero">
+ <div class="wrap">
+
+  <div>
+   <h1>Scent that arrives before you do.</h1>
+   <p>Small-batch eau de parfum, composed with rare oud, Taif rose and Mediterranean citrus. Made to be remembered.</p>
+
+   <a class="btn" href="#shop">Shop fragrances</a>
+   <a class="btn ghost" href="#collections">Browse collections</a>
+  </div>
+
+  <div class="stage" id="heroBottle"></div>
+
+ </div>
+</section>
+
+
+<section id="collections">
+ <div class="wrap">
+
+  <h2>Four families, one house</h2>
+
+  <p class="sub">
+   Choose by mood. Each family is built around a signature accord.
+  </p>
+
+  <div class="cats" id="cats"></div>
+
+ </div>
+</section>
+
+
+<section style="padding-top:0">
+ <div class="wrap">
+
+  <h2>Featured this season</h2>
+
+  <p class="sub">
+   Our most requested bottles, chosen by the Aura perfumers.
+  </p>
+
+  <div class="grid" id="featured"></div>
+
+ </div>
+</section>
+
+
+<section id="shop" style="background:var(--sand)">
+ <div class="wrap">
+
+  <h2>The full collection</h2>
+
+  <p class="sub">
+   All prices in Pakistani rupees (PKR). Prices shown are for the selected size.
+  </p>
+
+  <div class="filters" id="filters" role="group" aria-label="Filter by category"></div>
+
+  <div class="grid" id="grid"></div>
+
+ </div>
+</section>
+
+
+<section class="about" id="about" style="background:var(--cream)">
+ <div class="wrap">
+
+  <div>
+
+   <h2>Our story</h2>
+
+   <p>
+    Aura began as a one-room studio with a simple rule: every bottle should smell like a place you want to return to. We blend traditional attar craft with modern French-style composition.
+   </p>
+
+   <p>
+    Each eau de parfum is macerated for four weeks, then rested before bottling, so the notes settle into one calm, lasting signature.
+   </p>
+
+   <div class="vals">
+
+    <div>
+     <b>18% oil</b>
+     Parfum strength
+    </div>
+
+    <div>
+     <b>4 weeks</b>
+     Maceration
+    </div>
+
+    <div>
+     <b>Vegan</b>
+     Cruelty-free
+    </div>
+
+   </div>
+
+  </div>
+
+  <div class="frame">
+   <div id="aboutBottle"></div>
+  </div>
+
+ </div>
+</section>
+
+
+<section id="faq" style="background:var(--sand)">
+ <div class="wrap">
+
+  <h2>Questions, answered</h2>
+
+  <div class="faq">
+
+   <details>
+    <summary>How long does a fragrance last?</summary>
+    <p>Our eau de parfum concentration typically lasts 6 to 8 hours on skin, depending on skin type and weather.</p>
+   </details>
+
+   <details>
+    <summary>Which size should I choose?</summary>
+    <p>Start with 30 ml to test a scent, 50 ml for regular wear, and 100 ml for the best value per millilitre.</p>
+   </details>
+
+   <details>
+    <summary>How do I make a fragrance last longer?</summary>
+    <p>Apply to moisturised skin at pulse points such as the wrists and neck. Avoid rubbing your wrists together.</p>
+   </details>
+
+   <details>
+    <summary>Can I buy from this website?</summary>
+    <p>No. Aura Perfumes is a fictional brand and this is a practice project, so no orders are taken and no payments are processed.</p>
+   </details>
+
+   <details>
+    <summary>How should I store my perfume?</summary>
+    <p>Keep it in a cool, dry place away from direct sunlight and heat. The box is a good home for it.</p>
+   </details>
+
+  </div>
+
+ </div>
+</section>
+
+</main>
+
+
+<!-- PRODUCT PAGE -->
+
+<section id="pdp">
+ <div class="wrap" id="pdpIn"></div>
+</section>
+
+
+<!-- CHECKOUT PAGE -->
+
+<section id="checkoutPage">
+
+ <div class="wrap">
+
+  <a class="back" href="#shop" id="backShop">
+   ← Continue shopping
+  </a>
+
+  <div class="checkout-head">
+   <h1>Checkout</h1>
+   <p>Complete your details and review your order.</p>
+  </div>
+
+  <div class="checkout-grid">
+
+   <div class="checkout-box">
+
+    <h2>Your details</h2>
+
+    <form id="checkoutForm">
+
+     <div class="form-row">
+
+      <div class="field">
+       <label for="firstName">First name</label>
+       <input id="firstName" type="text" required>
+      </div>
+
+      <div class="field">
+       <label for="lastName">Last name</label>
+       <input id="lastName" type="text" required>
+      </div>
+
+     </div>
+
+     <div class="field">
+      <label for="email">Email address</label>
+      <input id="email" type="email" required>
+     </div>
+
+     <div class="field">
+      <label for="phone">Phone number</label>
+      <input id="phone" type="tel" required>
+     </div>
+
+     <div class="field">
+      <label for="address">Delivery address</label>
+      <textarea id="address" required></textarea>
+     </div>
+
+     <div class="field">
+      <label for="city">City</label>
+      <input id="city" type="text" required>
+     </div>
+
+     <div class="demo-note">
+      This is a practice checkout. No payment will be taken and no real order will be placed.
+     </div>
+
+     <button class="btn" type="submit" style="width:100%">
+      Place Demo Order
+     </button>
+
+     <div id="orderSuccess">
+      <strong>Demo order complete.</strong><br>
+      Thank you. No payment was taken and no real order was submitted.
+     </div>
+
+    </form>
+
+   </div>
+
+
+   <div class="checkout-box">
+
+    <h2>Order summary</h2>
+
+    <div id="checkoutItems"></div>
+
+    <div class="checkout-total">
+     <span>Total</span>
+     <span id="checkoutTotal">PKR 0</span>
+    </div>
+
+   </div>
+
+  </div>
+
+ </div>
+
+</section>
+
+
+
+<!-- ADMIN LOGIN -->
+<section id="loginPage">
+ <div class="login-box">
+  <div class="login-logo">AURA</div>
+  <h1>Admin Login</h1>
+  <p class="login-sub">Sign in to manage your store.</p>
+  <form id="adminLoginForm">
+   <div class="login-field"><label for="adminEmail">Email address</label><input type="email" id="adminEmail" placeholder="Enter admin email" required></div>
+   <div class="login-field"><label for="adminPassword">Password</label><div class="login-password"><input type="password" id="adminPassword" placeholder="Enter password" required><button type="button" class="show-pass" id="showPassword">Show</button></div></div>
+   <button type="submit" class="btn login-btn">Login</button>
+   <div class="login-error" id="loginError">Incorrect email or password.</div>
+  </form>
+  <a href="#top" class="login-back">← Back to Aura Perfumes</a>
+ </div>
+</section>
+
+<!-- ADMIN DASHBOARD -->
+<section id="adminPage">
+ <div class="admin-shell">
+  <aside class="admin-side">
+   <div class="admin-brand">AURA<small>Admin Panel</small></div>
+   <div class="admin-menu">
+    <button class="on" type="button">⌂ Dashboard</button>
+    <button type="button" data-admin-jump="orders">▣ Orders</button>
+    <button type="button" data-admin-jump="stock">◇ Products</button>
+    <button type="button">▤ Categories</button><button type="button">♙ Customers</button><button type="button">▥ Reports</button>
+   </div>
+   <div class="admin-view-store"><a href="#shop">↗ View Store</a><button id="adminLogout" type="button" style="display:block;color:#eee5d4;margin-top:16px;padding:0">← Logout</button></div>
+  </aside>
+  <div class="admin-main">
+   <div class="admin-top"><input class="admin-search" id="adminSearch" type="search" placeholder="Search orders, products or customers..."><div class="admin-user"><span class="admin-avatar">A</span><span>Admin</span></div></div>
+   <div class="admin-heading"><div><h1>Dashboard</h1><p>Welcome back! Here is an overview of your store.</p></div></div>
+   <div class="admin-stats">
+    <div class="stat-card"><small>Total Orders</small><strong id="adOrders">0</strong><small>demo orders received</small></div>
+    <div class="stat-card"><small>Total Products</small><strong id="adProducts">0</strong><small>products in store</small></div>
+    <div class="stat-card"><small>In Stock</small><strong id="adInStock">0</strong><small>products available</small></div>
+    <div class="stat-card"><small>Out of Stock</small><strong id="adOutStock">0</strong><small>products unavailable</small></div>
+   </div>
+   <div class="admin-grid">
+    <div class="admin-card"><h2>Orders Overview</h2><div class="chart" id="ordersChart"></div></div>
+    <div class="admin-card"><h2>Stock Status</h2><div class="stock-ring" id="stockRing"><div><strong id="ringTotal">0</strong><small>Total Products</small></div></div><p style="text-align:center">In Stock: <b id="ringIn">0</b> · Out: <b id="ringOut">0</b></p></div>
+    <div class="admin-card"><h2>Top Trending Products</h2><div class="trending-list" id="trendingList"></div></div>
+   </div>
+   <div class="admin-bottom">
+    <div class="admin-card" id="adminOrdersBlock"><h2>Recent Orders</h2><div id="adminOrders"></div></div>
+    <div class="admin-card" id="adminStockBlock"><h2>Product Stock</h2><div id="adminStock"></div></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<footer>
+
+ <div class="wrap">
+
+  <div class="fg">
+
+   <div>
+    <h4>AURA</h4>
+    <p style="max-width:34ch;font-size:.9rem">
+     A fictional fine fragrance house. Eau de parfum for every mood.
+    </p>
+   </div>
+
+   <div>
+    <h4>Shop</h4>
+    <a href="#shop">All fragrances</a>
+    <a href="#collections">Collections</a>
+    <a href="#faq">FAQs</a>
+   </div>
+
+   <div>
+    <h4>House</h4>
+    <a href="#about">Our story</a>
+    <a href="#faq">Fragrance care</a>
+   </div>
+
+  </div>
+
+  <div class="note">
+   <span>© 2026 Aura Perfumes (fictional brand)</span>
+   <b>Practice project — no real orders</b>
+  </div>
+
+ </div>
+
+</footer>
+
+
+<!-- CART -->
+
+<div class="ov" id="ov"></div>
+
+<aside id="drawer" aria-label="Shopping cart">
+
+ <div class="dh">
+
+  <h3>Your cart</h3>
+
+  <button class="ib" id="cx" aria-label="Close cart">
+   ✕
+  </button>
+
+ </div>
+
+ <div id="items"></div>
+
+ <div class="df">
+
+  <div class="tot">
+   <span>Total</span>
+   <span id="total">PKR 0</span>
+  </div>
+
+  <button class="btn" id="checkout">
+   Checkout
+  </button>
+
+ </div>
+
+</aside>
+
+<div id="toast" role="status"></div>
+
+
+<script>
+
+const SZ={
+ 30:.55,
+ 50:.8,
+ 100:1
+};
+
+const P=[
+
+ {
+  id:1,
+  n:"Noor Oud",
+  c:"Oriental",
+  p:19500,
+  f:1,
+  col:["#3b2410","#b08d4a"],
+  sh:0,
+  top:"Saffron, Bergamot",
+  mid:"Taif Rose, Oud",
+  base:"Amber, Musk",
+  d:"A deep, glowing oud softened by rose and saffron."
+ },
+
+ {
+  id:2,
+  n:"Rose Mirage",
+  c:"Floral",
+  p:14500,
+  f:1,
+  col:["#8c3a4a","#e6b9a6"],
+  sh:1,
+  top:"Pink Pepper, Lychee",
+  mid:"Damask Rose, Peony",
+  base:"White Musk, Cedar",
+  d:"A dewy rose that feels like warm air after rain."
+ },
+
+ {
+  id:3,
+  n:"Citrine Coast",
+  c:"Fresh",
+  p:11800,
+  f:1,
+  col:["#c9a227","#f5e6a8"],
+  sh:2,
+  top:"Lemon, Grapefruit",
+  mid:"Neroli, Sea Salt",
+  base:"Driftwood, Musk",
+  d:"Bright citrus and salt air, made for hot afternoons."
+ },
+
+ {
+  id:4,
+  n:"Midnight Vetiver",
+  c:"Woody",
+  p:16800,
+  f:1,
+  col:["#1f2d28","#6f8f7e"],
+  sh:0,
+  top:"Black Pepper, Cardamom",
+  mid:"Vetiver, Iris",
+  base:"Sandalwood, Tonka",
+  d:"Smoky green vetiver with a smooth sandalwood finish."
+ },
+
+ {
+  id:5,
+  n:"Jasmin Veil",
+  c:"Floral",
+  p:13200,
+  f:0,
+  col:["#e8dcc4","#b08d4a"],
+  sh:2,
+  top:"Mandarin, Pear",
+  mid:"Night Jasmine, Tuberose",
+  base:"Vanilla, Sandalwood",
+  d:"Creamy white florals wrapped in soft vanilla."
+ },
+
+ {
+  id:6,
+  n:"Amber Dune",
+  c:"Oriental",
+  p:15500,
+  f:0,
+  col:["#a9622b","#f0c27a"],
+  sh:1,
+  top:"Cinnamon, Orange",
+  mid:"Labdanum, Honey",
+  base:"Amber, Benzoin",
+  d:"Warm resins and honey, like sunset on desert sand."
+ },
+
+ {
+  id:7,
+  n:"Cedar & Smoke",
+  c:"Woody",
+  p:12900,
+  f:0,
+  col:["#4a3426","#c8a27a"],
+  sh:2,
+  top:"Juniper, Lavender",
+  mid:"Cedarwood, Leather",
+  base:"Smoked Birch, Patchouli",
+  d:"Dry cedar and campfire smoke with a leather edge."
+ },
+
+ {
+  id:8,
+  n:"Blue Zephyr",
+  c:"Fresh",
+  p:10900,
+  f:0,
+  col:["#2b5d86","#a9d1ea"],
+  sh:0,
+  top:"Sea Breeze, Mint",
+  mid:"Green Tea, Lotus",
+  base:"Ambergris, Cedar",
+  d:"Clean, cool and airy. An easy everyday signature."
+ }
+
+];
+
+
+const $=s=>document.querySelector(s);
+
+const pkr=n=>"PKR "+n.toLocaleString("en-US");
+
+const price=(p,s)=>Math.round(p.p*SZ[s]/100)*100;
+
+
+/* BOTTLE */
+
+function bottle(p){
+
+ const [a,b]=p.col;
+
+ const g="g"+p.id+Math.random().toString(36).slice(2,6);
+
+ const body=[
+
+  '<rect x="30" y="80" width="100" height="130" rx="10"/>',
+
+  '<path d="M45 80h70a15 15 0 0 1 15 15v95a20 20 0 0 1-20 20H50a20 20 0 0 1-20-20V95a15 15 0 0 1 15-15z"/>',
+
+  '<path d="M80 80c30 0 50 20 50 55 0 40-20 75-50 75s-50-35-50-75c0-35 20-55 50-55z"/>'
+
+ ][p.sh];
+
+ return `
+ <svg viewBox="0 0 160 240" role="img" aria-label="${p.n} bottle">
+
+  <defs>
+
+   <linearGradient id="${g}" x1="0" x2="1">
+
+    <stop offset="0" stop-color="${a}"/>
+
+    <stop offset=".55" stop-color="${b}"/>
+
+    <stop offset="1" stop-color="${a}"/>
+
+   </linearGradient>
+
+  </defs>
+
+  <rect x="62" y="22" width="36" height="34" rx="4" fill="#16130f"/>
+
+  <rect x="62" y="22" width="36" height="5" fill="#b08d4a"/>
+
+  <rect x="70" y="56" width="20" height="24" fill="#b08d4a"/>
+
+  <g fill="url(#${g})" stroke="#b08d4a" stroke-width="1.5">
+   ${body}
+  </g>
+
+  <rect x="52" y="125" width="56" height="44" fill="#f6f0e4" opacity=".92"/>
+
+  <text x="80" y="143" text-anchor="middle" font-family="Georgia,serif" font-size="10" letter-spacing="3" fill="#16130f">
+   AURA
+  </text>
+
+  <text x="80" y="158" text-anchor="middle" font-family="Georgia,serif" font-size="6.5" fill="#6d655a">
+   ${p.n.toUpperCase()}
+  </text>
+
+ </svg>
+ `;
+
+}
+
+
+let cat="All";
+let term="";
+let cart=[];
+let cur=null;
+
+/* PRACTICE ADMIN DATA */
+const ADMIN_EMAIL="admin@auraperfumes.com";
+const ADMIN_PASSWORD="AuraAdmin123";
+let adminLoggedIn=sessionStorage.getItem("auraAdminLoggedIn")==="yes";
+let stock=JSON.parse(localStorage.getItem("auraStock")||"null")||{1:15,2:0,3:8,4:3,5:0,6:7,7:5,8:11};
+let orders=JSON.parse(localStorage.getItem("auraOrders")||"[]");
+const saveAdminData=()=>{localStorage.setItem("auraStock",JSON.stringify(stock));localStorage.setItem("auraOrders",JSON.stringify(orders))};
+
+
+
+/* PRODUCT CARD */
+
+function card(p){
+
+ return `
+
+ <article class="card">
+
+  <div class="thumb" data-o="${p.id}">
+
+   ${p.f?'<span class="tag">Featured</span>':''}
+
+   ${bottle(p)}
+
+  </div>
+
+  <div class="info">
+
+   <small>
+    ${p.c} · Eau de parfum
+   </small>
+
+   <h3 data-o="${p.id}">
+    ${p.n}
+   </h3>
+
+   <small>
+    ${p.top}
+   </small>
+
+   <div class="row">
+
+    <span class="price">
+     ${pkr(price(p,100))}
+    </span>
+
+    <button class="add" data-a="${p.id}">
+     Add to cart
+    </button>
+
+   </div>
+
+  </div>
+
+ </article>
+
+ `;
+
+}
+
+
+function renderGrid(){
+
+ const t=term.toLowerCase();
+
+ const l=P.filter(p=>
+
+  (cat=="All"||p.c==cat)
+
+  &&
+
+  (!t||[
+   p.n,
+   p.c,
+   p.top,
+   p.mid,
+   p.base,
+   p.d
+  ].join(" ").toLowerCase().includes(t))
+
+ );
+
+ $("#grid").innerHTML=
+
+ l.length
+
+ ?
+
+ l.map(card).join("")
+
+ :
+
+ '<p class="empty">No fragrances match your search. Try a different note or category.</p>';
+
+}
+
+
+function renderFilters(){
+
+ $("#filters").innerHTML=
+
+ ["All","Floral","Woody","Oriental","Fresh"]
+
+ .map(c=>
+
+ `<button class="chip ${c==cat?'on':''}" data-c="${c}" aria-pressed="${c==cat}">
+  ${c}
+ </button>`
+
+ ).join("");
+
+}
+
+
+function init(){
+
+ $("#heroBottle").innerHTML=bottle(P[0]);
+
+ $("#aboutBottle").innerHTML=bottle(P[3]);
+
+ $("#featured").innerHTML=
+ P.filter(p=>p.f).map(card).join("");
+
+ const info={
+  Floral:"Rose, jasmine, peony",
+  Woody:"Cedar, vetiver, sandalwood",
+  Oriental:"Oud, amber, spice",
+  Fresh:"Citrus, sea, green tea"
+ };
+
+ $("#cats").innerHTML=
+
+ Object.keys(info)
+
+ .map(k=>
+
+ `<button class="cat" data-cat="${k}">
+  <h3>${k}</h3>
+  <span>${info[k]}</span>
+ </button>`
+
+ ).join("");
+
+ renderFilters();
+
+ renderGrid();
+
+}
+
+
+/* TOAST */
+
+function toast(m){
+
+ const t=$("#toast");
+
+ t.textContent=m;
+
+ t.classList.add("on");
+
+ clearTimeout(t._t);
+
+ t._t=setTimeout(
+  ()=>t.classList.remove("on"),
+  1800
+ );
+
+}
+
+
+/* CART */
+
+function addCart(id,s,q){
+
+ const k=id+"-"+s;
+
+ const i=cart.find(x=>x.k==k);
+
+ i
+ ?
+ i.q+=q
+ :
+ cart.push({
+  k,
+  id,
+  s,
+  q
+ });
+
+ renderCart();
+
+ toast("Added to cart");
+
+}
+
+
+function renderCart(){
+
+ const n=cart.reduce(
+  (a,i)=>a+i.q,
+  0
+ );
+
+ $("#cnt").textContent=n;
+
+ let tot=0;
+
+ $("#items").innerHTML=
+
+ cart.length
+
+ ?
+
+ cart.map(i=>{
+
+  const p=P.find(
+   x=>x.id==i.id
+  );
+
+  const pr=price(p,i.s);
+
+  tot+=pr*i.q;
+
+  return `
+
+  <div class="it">
+
+   <div class="mini">
+    ${bottle(p)}
+   </div>
+
+   <div>
+
+    <h4>${p.n}</h4>
+
+    <small>
+     ${i.s} ml · ${pkr(pr)}
+    </small>
+
+    <div class="qty" style="margin-top:6px">
+
+     <button data-m="${i.k}" aria-label="Decrease">
+      −
+     </button>
+
+     <span>${i.q}</span>
+
+     <button data-p="${i.k}" aria-label="Increase">
+      +
+     </button>
+
+    </div>
+
+   </div>
+
+   <div style="text-align:right">
+
+    <b>
+     ${pkr(pr*i.q)}
+    </b>
+
+    <br>
+
+    <button class="rm" data-r="${i.k}">
+     Remove
+    </button>
+
+   </div>
+
+  </div>
+
+  `;
+
+ }).join("")
+
+ :
+
+ '<p class="empty" style="padding:60px 0">Your cart is empty. Add a fragrance to begin.</p>';
+
+ $("#total").textContent=pkr(tot);
+
+}
+
+
+/* PRODUCT PAGE */
+
+function openProduct(id){
+
+ location.hash="product-"+id;
+
+}
+
+
+function showProduct(id){
+ $("#loginPage").classList.remove("on");$("#adminPage").classList.remove("on");document.querySelector("header").style.display="";document.querySelector("footer").style.display="";
+
+ const p=P.find(
+  x=>x.id==id
+ );
+
+ if(!p)return;
+
+ cur={
+  p,
+  s:50,
+  q:1
+ };
+
+ $("#pdpIn").innerHTML=`
+
+ <a class="back" href="#shop">
+  ← Back to collection
+ </a>
+
+ <div class="pg">
+
+  <div class="thumb">
+   ${bottle(p)}
+  </div>
+
+  <div>
+
+   <small style="color:var(--mut)">
+    ${p.c} · Eau de parfum
+   </small>
+
+   <h1>
+    ${p.n}
+   </h1>
+
+   <p style="color:var(--mut)">
+    ${p.d}
+   </p>
+
+   <div class="notes">
+
+    <div>
+     <b>Top</b>
+     ${p.top}
+    </div>
+
+    <div>
+     <b>Heart</b>
+     ${p.mid}
+    </div>
+
+    <div>
+     <b>Base</b>
+     ${p.base}
+    </div>
+
+   </div>
+
+   <div>Size</div>
+
+   <div class="sizes">
+
+    ${[30,50,100].map(s=>
+
+     `<button class="sz ${s==50?'on':''}" data-s="${s}">
+      ${s} ml
+     </button>`
+
+    ).join("")}
+
+   </div>
+
+   <div class="price" id="mp" style="font-size:1.7rem;margin-bottom:16px"></div>
+
+   <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:center">
+
+    <div class="qty">
+
+     <button id="qm" aria-label="Decrease">
+      −
+     </button>
+
+     <span id="mq">
+      1
+     </span>
+
+     <button id="qp" aria-label="Increase">
+      +
+     </button>
+
+    </div>
+
+    <button class="btn" id="madd">
+     Add to cart
+    </button>
+
+   </div>
+
+  </div>
+
+ </div>
+
+ `;
+
+ $("main").style.display="none";
+
+ $("#checkoutPage").classList.remove("on");
+
+ $("#pdp").classList.add("on");
+
+ mp();
+
+ window.scrollTo(0,0);
+
+}
+
+
+const mp=()=>{
+
+ if(!cur)return;
+
+ const el=$("#mp");
+
+ if(el){
+
+  el.textContent=
+  pkr(
+   price(cur.p,cur.s)*cur.q
+  );
+
+ }
+
+};
+
+
+/* CHECKOUT */
+
+function renderCheckout(){
+
+ let tot=0;
+
+ if(!cart.length){
+
+  $("#checkoutItems").innerHTML=
+  '<p style="color:var(--mut)">Your cart is empty.</p>';
+
+  $("#checkoutTotal").textContent=
+  pkr(0);
+
+  return;
+
+ }
+
+ $("#checkoutItems").innerHTML=
+
+ cart.map(i=>{
+
+  const p=P.find(
+   x=>x.id==i.id
+  );
+
+  const pr=price(p,i.s);
+
+  tot+=pr*i.q;
+
+  return `
+
+  <div class="order-line">
+
+   <div class="mini">
+    ${bottle(p)}
+   </div>
+
+   <div>
+
+    <h4>
+     ${p.n}
+    </h4>
+
+    <small>
+     ${i.s} ml · Qty ${i.q}
+    </small>
+
+   </div>
+
+   <strong>
+    ${pkr(pr*i.q)}
+   </strong>
+
+  </div>
+
+  `;
+
+ }).join("");
+
+ $("#checkoutTotal").textContent=
+ pkr(tot);
+
+}
+
+
+function openCheckout(){
+
+ if(!cart.length){
+
+  toast("Your cart is empty");
+
+  return;
+
+ }
+
+ closeCart();
+
+ location.hash="checkout";
+
+}
+
+
+function showCheckout(){
+ $("#loginPage").classList.remove("on");$("#adminPage").classList.remove("on");document.querySelector("header").style.display="";document.querySelector("footer").style.display="";
+
+ $("main").style.display="none";
+
+ $("#pdp").classList.remove("on");
+
+ $("#checkoutPage").classList.add("on");
+
+ renderCheckout();
+
+ window.scrollTo(0,0);
+
+}
+
+
+
+/* ADMIN LOGIN + DASHBOARD */
+function showLogin(){
+ $("main").style.display="none";$("#pdp").classList.remove("on");$("#checkoutPage").classList.remove("on");$("#adminPage").classList.remove("on");$("#loginPage").classList.add("on");
+ document.querySelector("header").style.display="none";document.querySelector("footer").style.display="none";$("#loginError").classList.remove("on");window.scrollTo(0,0);
+}
+function renderAdmin(){
+ const inStock=P.filter(p=>(stock[p.id]||0)>0).length,outStock=P.length-inStock;
+ $("#adOrders").textContent=orders.length;$("#adProducts").textContent=P.length;$("#adInStock").textContent=inStock;$("#adOutStock").textContent=outStock;
+ $("#ringTotal").textContent=P.length;$("#ringIn").textContent=inStock;$("#ringOut").textContent=outStock;$("#stockRing").style.setProperty("--stock-pct",(P.length?Math.round(inStock/P.length*100):0)+"%");
+ const counts={};orders.forEach(o=>o.items.forEach(i=>counts[i.id]=(counts[i.id]||0)+i.q));
+ const trending=[...P].sort((a,b)=>(counts[b.id]||0)-(counts[a.id]||0)||b.f-a.f).slice(0,3);
+ $("#trendingList").innerHTML=trending.map((p,n)=>`<div class="trend"><span>${n+1}</span><div class="mini">${bottle(p)}</div><div><b>${p.n}</b><small>${counts[p.id]||0} ordered</small></div></div>`).join("");
+ const recent=orders.slice().reverse().slice(0,6);
+ $("#adminOrders").innerHTML=recent.length?`<table class="admin-table"><thead><tr><th>#</th><th>Customer</th><th>Total</th><th>Status</th><th>Date</th></tr></thead><tbody>${recent.map(o=>`<tr><td>#${o.id}</td><td>${o.customer}</td><td>${pkr(o.total)}</td><td><span class="status pending">${o.status}</span></td><td>${o.date}</td></tr>`).join("")}</tbody></table>`:'<p style="color:var(--mut)">No orders yet.</p>';
+ $("#adminStock").innerHTML=`<table class="admin-table"><thead><tr><th>Product</th><th>Stock</th><th>Status</th></tr></thead><tbody>${P.map(p=>{const s=stock[p.id]||0;return `<tr><td><div class="stock-product"><div class="mini">${bottle(p)}</div>${p.n}</div></td><td><input class="stock-edit" type="number" min="0" value="${s}" data-stock="${p.id}"></td><td><span class="status ${s?'in':'out'}">${s?'In Stock':'Out of Stock'}</span></td></tr>`}).join("")}</tbody></table>`;
+ const vals=[0,0,0,0,0,0,0],days=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];orders.forEach(o=>{const d=new Date(o.iso).getDay();vals[(d+6)%7]++});const max=Math.max(1,...vals);
+ $("#ordersChart").innerHTML=vals.map((v,i)=>`<div class="chart-col"><div class="chart-bar" style="height:${Math.max(5,v/max*90)}%"></div><small>${days[i]}</small></div>`).join("");
+}
+function showAdmin(){
+ if(!adminLoggedIn){location.hash="login";return}
+ $("main").style.display="none";$("#pdp").classList.remove("on");$("#checkoutPage").classList.remove("on");$("#loginPage").classList.remove("on");$("#adminPage").classList.add("on");
+ document.querySelector("header").style.display="none";document.querySelector("footer").style.display="none";renderAdmin();window.scrollTo(0,0);
+}
+
+/* ROUTING */
+
+function route(){
+ const productMatch=location.hash.match(/^#product-(\d+)$/);
+ if(productMatch){showProduct(+productMatch[1]);return}
+ if(location.hash==="#checkout"){showCheckout();return}
+ if(location.hash==="#login"){if(adminLoggedIn){location.hash="admin";return}showLogin();return}
+ if(location.hash==="#admin"){showAdmin();return}
+
+ $("#loginPage").classList.remove("on");$("#adminPage").classList.remove("on");$("#pdp").classList.remove("on");$("#checkoutPage").classList.remove("on");
+ document.querySelector("header").style.display="";document.querySelector("footer").style.display="";$("main").style.display="";
+ if(location.hash){const el=document.querySelector(location.hash);if(el)setTimeout(()=>el.scrollIntoView(),0)}
+}
+
+window.addEventListener(
+ "hashchange",
+ route
+);
+
+
+/* CART OPEN/CLOSE */
+
+function closeCart(){
+
+ $("#drawer").classList.remove("on");
+
+ $("#ov").classList.remove("on");
+
+}
+
+
+function closeAll(){
+
+ closeCart();
+
+}
+
+
+function openCart(){
+
+ $("#drawer").classList.add("on");
+
+ $("#ov").classList.add("on");
+
+}
+
+
+/* CLICKS */
+
+document.addEventListener(
+ "click",
+ e=>{
+
+ const t=e.target.closest(
+  "button,[data-o]"
+ );
+
+ if(!t)return;
+
+ const d=t.dataset;
+
+
+ if(d.o){
+
+  openProduct(+d.o);
+
+ }
+
+
+ else if(d.a){
+
+  addCart(
+   +d.a,
+   50,
+   1
+  );
+
+ }
+
+
+ else if(d.c){
+
+  cat=d.c;
+
+  renderFilters();
+
+  renderGrid();
+
+ }
+
+
+ else if(d.cat){
+
+  cat=d.cat;
+
+  renderFilters();
+
+  renderGrid();
+
+  $("#shop").scrollIntoView();
+
+ }
+
+
+ else if(d.s){
+
+  cur.s=+d.s;
+
+  document
+  .querySelectorAll(".sz")
+  .forEach(
+   b=>
+   b.classList.toggle(
+    "on",
+    b.dataset.s==d.s
+   )
+  );
+
+  mp();
+
+ }
+
+
+ else if(t.id=="qp"){
+
+  cur.q++;
+
+  $("#mq").textContent=
+  cur.q;
+
+  mp();
+
+ }
+
+
+ else if(
+  t.id=="qm"
+  &&
+  cur.q>1
+ ){
+
+  cur.q--;
+
+  $("#mq").textContent=
+  cur.q;
+
+  mp();
+
+ }
+
+
+ else if(t.id=="madd"){
+
+  addCart(
+   cur.p.id,
+   cur.s,
+   cur.q
+  );
+
+  openCart();
+
+ }
+
+
+ else if(t.id=="cx"){
+
+  closeCart();
+
+ }
+
+
+ else if(d.p){
+
+  const item=
+  cart.find(
+   i=>i.k==d.p
+  );
+
+  if(item){
+
+   item.q++;
+
+   renderCart();
+
+  }
+
+ }
+
+
+ else if(d.m){
+
+  const item=
+  cart.find(
+   i=>i.k==d.m
+  );
+
+  if(item&&item.q>1){
+
+   item.q--;
+
+   renderCart();
+
+  }
+
+ }
+
+
+ else if(d.r){
+
+  cart=
+  cart.filter(
+   i=>i.k!=d.r
+  );
+
+  renderCart();
+
+ }
+
+
+ else if(t.id=="cbtn"){
+
+  openCart();
+
+ }
+
+
+ else if(t.id=="sbtn"){
+
+  $("#sbar").classList.toggle(
+   "on"
+  );
+
+  $("#q").focus();
+
+ }
+
+
+ else if(t.id=="checkout"){
+
+  openCheckout();
+
+ }
+
+});
+
+
+/* OVERLAY */
+
+$("#ov").onclick=closeCart;
+
+
+/* ESC */
+
+document.addEventListener(
+ "keydown",
+ e=>{
+
+  if(e.key=="Escape"){
+
+   closeCart();
+
+  }
+
+ }
+);
+
+
+/* SEARCH */
+
+$("#q").addEventListener(
+ "input",
+ e=>{
+
+  term=e.target.value;
+
+  renderGrid();
+
+  if(
+   location.hash.startsWith(
+    "#product"
+   )
+  ){
+
+   location.hash="shop";
+
+  }
+
+  else if(term){
+
+   $("#shop").scrollIntoView();
+
+  }
+
+ }
+);
+
+
+/* CHECKOUT FORM */
+
+$("#checkoutForm").addEventListener(
+ "submit",
+ e=>{
+
+  e.preventDefault();
+
+  if(!cart.length){
+
+   toast("Your cart is empty");
+
+   return;
+
+  }
+
+  const total=cart.reduce((sum,i)=>{const p=P.find(x=>x.id==i.id);return sum+price(p,i.s)*i.q},0);
+  const customer=($("#firstName").value+" "+$("#lastName").value).trim()||"Demo Customer";
+  const order={id:1001+orders.length,customer,items:cart.map(i=>({...i})),total,status:"Pending",date:new Date().toLocaleDateString("en-GB",{day:"2-digit",month:"short",year:"numeric"}),iso:new Date().toISOString()};
+  orders.push(order);
+  order.items.forEach(i=>stock[i.id]=Math.max(0,(stock[i.id]||0)-i.q));
+  saveAdminData();
+  cart=[];renderCart();renderCheckout();
+  $("#orderSuccess").style.display="block";
+  $("#orderSuccess").innerHTML="<strong>Demo order #"+order.id+" complete.</strong><br>It is now visible in the Admin Dashboard. No payment was taken.";
+  $("#orderSuccess").scrollIntoView({behavior:"smooth",block:"center"});
+
+ }
+);
+
+
+
+/* ADMIN EVENTS */
+$("#adminLoginForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ const email=$("#adminEmail").value.trim().toLowerCase(),password=$("#adminPassword").value;
+ if(email===ADMIN_EMAIL.toLowerCase()&&password===ADMIN_PASSWORD){
+  adminLoggedIn=true;sessionStorage.setItem("auraAdminLoggedIn","yes");$("#loginError").classList.remove("on");$("#adminLoginForm").reset();location.hash="admin";
+ }else $("#loginError").classList.add("on");
+});
+$("#showPassword").addEventListener("click",()=>{
+ const i=$("#adminPassword"),show=i.type==="text";i.type=show?"password":"text";$("#showPassword").textContent=show?"Show":"Hide";
+});
+document.addEventListener("change",e=>{if(e.target.matches("[data-stock]")){stock[e.target.dataset.stock]=Math.max(0,+e.target.value||0);saveAdminData();renderAdmin()}});
+document.addEventListener("click",e=>{
+ if(e.target.id==="adminLogout"){adminLoggedIn=false;sessionStorage.removeItem("auraAdminLoggedIn");location.hash="login"}
+ const j=e.target.closest("[data-admin-jump]");if(j){document.querySelector(j.dataset.adminJump==="orders"?"#adminOrdersBlock":"#adminStockBlock")?.scrollIntoView({behavior:"smooth"})}
+});
+$("#adminSearch").addEventListener("input",e=>{const q=e.target.value.toLowerCase();document.querySelectorAll("#adminOrders tbody tr,#adminStock tbody tr").forEach(r=>r.style.display=r.textContent.toLowerCase().includes(q)?"":"none")});
+
+/* START */
+
+init();
+
+renderCart();
+
+route();
+
+</script>
+
+</body>
+</html>
