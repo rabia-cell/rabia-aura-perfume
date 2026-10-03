@@ -964,6 +964,15 @@ footer a:hover{color:var(--gold-l)}
 @media(max-width:1050px){.admin-stats{grid-template-columns:repeat(2,1fr)}.admin-grid,.admin-bottom{grid-template-columns:1fr}.admin-shell{grid-template-columns:1fr}}
 @media(max-width:620px){.admin-main{padding:18px}.admin-stats{grid-template-columns:1fr}.admin-heading,.admin-top{align-items:flex-start;flex-direction:column}.admin-search{width:100%}}
 
+
+.admin-view{display:none}
+.admin-view.on{display:block}
+.out-badge{display:inline-block;background:#f7d4d1;color:#a02e28;padding:4px 10px;font-size:.75rem;margin-top:7px}
+.add[disabled],#madd[disabled]{opacity:.45;cursor:not-allowed;background:#d8d0c1;color:#6d655a;border-color:#c9bfac}
+.product-admin-name{display:flex;align-items:center;gap:10px}
+.product-admin-name .mini{width:42px;background:var(--sand);padding:4px}
+.product-admin-name .mini svg{height:42px}
+
 @media(prefers-reduced-motion:reduce){
  *{
   transition:none!important;
@@ -1297,34 +1306,134 @@ footer a:hover{color:var(--gold-l)}
 <!-- ADMIN DASHBOARD -->
 <section id="adminPage">
  <div class="admin-shell">
+
   <aside class="admin-side">
-   <div class="admin-brand">AURA<small>Admin Panel</small></div>
+   <div class="admin-brand">
+    AURA
+    <small>Admin Panel</small>
+   </div>
+
    <div class="admin-menu">
-    <button class="on" type="button">⌂ Dashboard</button>
-    <button type="button" data-admin-jump="orders">▣ Orders</button>
-    <button type="button" data-admin-jump="stock">◇ Products</button>
-    <button type="button">▤ Categories</button><button type="button">♙ Customers</button><button type="button">▥ Reports</button>
+    <button class="on" type="button" data-admin-view="dashboard">⌂ Dashboard</button>
+    <button type="button" data-admin-view="orders">▣ Orders</button>
+    <button type="button" data-admin-view="products">◇ Products</button>
+    <button type="button" data-admin-view="customers">♙ Customers</button>
+    <button type="button" data-admin-view="reports">▥ Reports</button>
    </div>
-   <div class="admin-view-store"><a href="#shop">↗ View Store</a><button id="adminLogout" type="button" style="display:block;color:#eee5d4;margin-top:16px;padding:0">← Logout</button></div>
+
+   <div class="admin-view-store">
+    <a href="#shop">↗ View Store</a>
+    <button id="adminLogout" type="button" style="display:block;color:#eee5d4;margin-top:16px;padding:0">← Logout</button>
+   </div>
   </aside>
+
   <div class="admin-main">
-   <div class="admin-top"><input class="admin-search" id="adminSearch" type="search" placeholder="Search orders, products or customers..."><div class="admin-user"><span class="admin-avatar">A</span><span>Admin</span></div></div>
-   <div class="admin-heading"><div><h1>Dashboard</h1><p>Welcome back! Here is an overview of your store.</p></div></div>
-   <div class="admin-stats">
-    <div class="stat-card"><small>Total Orders</small><strong id="adOrders">0</strong><small>demo orders received</small></div>
-    <div class="stat-card"><small>Total Products</small><strong id="adProducts">0</strong><small>products in store</small></div>
-    <div class="stat-card"><small>In Stock</small><strong id="adInStock">0</strong><small>products available</small></div>
-    <div class="stat-card"><small>Out of Stock</small><strong id="adOutStock">0</strong><small>products unavailable</small></div>
+
+   <div class="admin-top">
+    <input class="admin-search" id="adminSearch" type="search" placeholder="Search current admin page...">
+    <div class="admin-user">
+     <span class="admin-avatar">A</span>
+     <span>Admin</span>
+    </div>
    </div>
-   <div class="admin-grid">
-    <div class="admin-card"><h2>Orders Overview</h2><div class="chart" id="ordersChart"></div></div>
-    <div class="admin-card"><h2>Stock Status</h2><div class="stock-ring" id="stockRing"><div><strong id="ringTotal">0</strong><small>Total Products</small></div></div><p style="text-align:center">In Stock: <b id="ringIn">0</b> · Out: <b id="ringOut">0</b></p></div>
-    <div class="admin-card"><h2>Top Trending Products</h2><div class="trending-list" id="trendingList"></div></div>
+
+   <!-- DASHBOARD VIEW -->
+   <div class="admin-view on" id="adminView-dashboard">
+    <div class="admin-heading">
+     <div>
+      <h1>Dashboard</h1>
+      <p>Welcome back! Here is an overview of your store.</p>
+     </div>
+    </div>
+
+    <div class="admin-stats">
+     <div class="stat-card"><small>Total Orders</small><strong id="adOrders">0</strong><small>demo orders received</small></div>
+     <div class="stat-card"><small>Total Products</small><strong id="adProducts">0</strong><small>products in store</small></div>
+     <div class="stat-card"><small>In Stock</small><strong id="adInStock">0</strong><small>products available</small></div>
+     <div class="stat-card"><small>Out of Stock</small><strong id="adOutStock">0</strong><small>products unavailable</small></div>
+    </div>
+
+    <div class="admin-grid">
+     <div class="admin-card">
+      <h2>Orders Overview</h2>
+      <div class="chart" id="ordersChart"></div>
+     </div>
+
+     <div class="admin-card">
+      <h2>Stock Status</h2>
+      <div class="stock-ring" id="stockRing">
+       <div><strong id="ringTotal">0</strong><small>Total Products</small></div>
+      </div>
+      <p style="text-align:center">In Stock: <b id="ringIn">0</b> · Out: <b id="ringOut">0</b></p>
+     </div>
+
+     <div class="admin-card">
+      <h2>Top Trending Products</h2>
+      <div class="trending-list" id="trendingList"></div>
+     </div>
+    </div>
+
+    <div class="admin-card">
+     <h2>Latest Orders</h2>
+     <div id="dashboardOrders"></div>
+    </div>
    </div>
-   <div class="admin-bottom">
-    <div class="admin-card" id="adminOrdersBlock"><h2>Recent Orders</h2><div id="adminOrders"></div></div>
-    <div class="admin-card" id="adminStockBlock"><h2>Product Stock</h2><div id="adminStock"></div></div>
+
+   <!-- ORDERS VIEW -->
+   <div class="admin-view" id="adminView-orders">
+    <div class="admin-heading">
+     <div>
+      <h1>Orders</h1>
+      <p>View every demo order placed through the website.</p>
+     </div>
+    </div>
+    <div class="admin-card">
+     <div id="allAdminOrders"></div>
+    </div>
    </div>
+
+   <!-- PRODUCTS VIEW -->
+   <div class="admin-view" id="adminView-products">
+    <div class="admin-heading">
+     <div>
+      <h1>Products</h1>
+      <p>Manage product stock and availability.</p>
+     </div>
+    </div>
+    <div class="admin-card">
+     <div id="allAdminProducts"></div>
+    </div>
+   </div>
+
+   <!-- CUSTOMERS VIEW -->
+   <div class="admin-view" id="adminView-customers">
+    <div class="admin-heading">
+     <div>
+      <h1>Customers</h1>
+      <p>Customers are created from placed demo orders.</p>
+     </div>
+    </div>
+    <div class="admin-card">
+     <div id="allAdminCustomers"></div>
+    </div>
+   </div>
+
+   <!-- REPORTS VIEW -->
+   <div class="admin-view" id="adminView-reports">
+    <div class="admin-heading">
+     <div>
+      <h1>Reports</h1>
+      <p>Simple sales and stock summary for this practice store.</p>
+     </div>
+    </div>
+    <div class="admin-stats">
+     <div class="stat-card"><small>Total Revenue</small><strong id="reportRevenue">PKR 0</strong><small>demo order value</small></div>
+     <div class="stat-card"><small>Units Ordered</small><strong id="reportUnits">0</strong><small>all demo orders</small></div>
+     <div class="stat-card"><small>Customers</small><strong id="reportCustomers">0</strong><small>unique email addresses</small></div>
+     <div class="stat-card"><small>Stock Units</small><strong id="reportStockUnits">0</strong><small>units currently available</small></div>
+    </div>
+   </div>
+
   </div>
  </div>
 </section>
@@ -1615,42 +1724,33 @@ const saveAdminData=()=>{localStorage.setItem("auraStock",JSON.stringify(stock))
 
 function card(p){
 
+ const available=(stock[p.id]||0)>0;
+
  return `
 
  <article class="card">
 
   <div class="thumb" data-o="${p.id}">
-
    ${p.f?'<span class="tag">Featured</span>':''}
-
    ${bottle(p)}
-
   </div>
 
   <div class="info">
 
-   <small>
-    ${p.c} · Eau de parfum
-   </small>
+   <small>${p.c} · Eau de parfum</small>
 
-   <h3 data-o="${p.id}">
-    ${p.n}
-   </h3>
+   <h3 data-o="${p.id}">${p.n}</h3>
 
-   <small>
-    ${p.top}
-   </small>
+   <small>${p.top}</small>
+
+   ${available
+     ? `<small style="color:#246a36">In Stock · ${stock[p.id]} available</small>`
+     : `<span class="out-badge">Out of Stock</span>`
+   }
 
    <div class="row">
-
-    <span class="price">
-     ${pkr(price(p,100))}
-    </span>
-
-    <button class="add" data-a="${p.id}">
-     Add to cart
-    </button>
-
+    <span class="price">${pkr(price(p,100))}</span>
+    <button class="add" data-a="${p.id}" ${available?'':'disabled'}>${available?'Add to cart':'Out of Stock'}</button>
    </div>
 
   </div>
@@ -1774,6 +1874,19 @@ function toast(m){
 /* CART */
 
 function addCart(id,s,q){
+
+ const available=stock[id]||0;
+ const already=cart.filter(x=>x.id==id).reduce((a,i)=>a+i.q,0);
+
+ if(available<=0){
+  toast("This perfume is out of stock");
+  return;
+ }
+
+ if(already+q>available){
+  toast("Only "+available+" unit(s) available");
+  return;
+ }
 
  const k=id+"-"+s;
 
@@ -2136,23 +2249,167 @@ function showLogin(){
  $("main").style.display="none";$("#pdp").classList.remove("on");$("#checkoutPage").classList.remove("on");$("#adminPage").classList.remove("on");$("#loginPage").classList.add("on");
  document.querySelector("header").style.display="none";document.querySelector("footer").style.display="none";$("#loginError").classList.remove("on");window.scrollTo(0,0);
 }
+function getCustomers(){
+ const map={};
+ orders.forEach(o=>{
+  const email=(o.email||"").toLowerCase() || ("unknown-"+o.customer);
+  if(!map[email]){
+   map[email]={
+    name:o.customer||"Demo Customer",
+    email:o.email||"—",
+    phone:o.phone||"—",
+    city:o.city||"—",
+    orders:0,
+    spent:0
+   };
+  }
+  map[email].orders++;
+  map[email].spent+=o.total||0;
+ });
+ return Object.values(map);
+}
+
 function renderAdmin(){
- const inStock=P.filter(p=>(stock[p.id]||0)>0).length,outStock=P.length-inStock;
- $("#adOrders").textContent=orders.length;$("#adProducts").textContent=P.length;$("#adInStock").textContent=inStock;$("#adOutStock").textContent=outStock;
- $("#ringTotal").textContent=P.length;$("#ringIn").textContent=inStock;$("#ringOut").textContent=outStock;$("#stockRing").style.setProperty("--stock-pct",(P.length?Math.round(inStock/P.length*100):0)+"%");
- const counts={};orders.forEach(o=>o.items.forEach(i=>counts[i.id]=(counts[i.id]||0)+i.q));
- const trending=[...P].sort((a,b)=>(counts[b.id]||0)-(counts[a.id]||0)||b.f-a.f).slice(0,3);
- $("#trendingList").innerHTML=trending.map((p,n)=>`<div class="trend"><span>${n+1}</span><div class="mini">${bottle(p)}</div><div><b>${p.n}</b><small>${counts[p.id]||0} ordered</small></div></div>`).join("");
- const recent=orders.slice().reverse().slice(0,6);
- $("#adminOrders").innerHTML=recent.length?`<table class="admin-table"><thead><tr><th>#</th><th>Customer</th><th>Total</th><th>Status</th><th>Date</th></tr></thead><tbody>${recent.map(o=>`<tr><td>#${o.id}</td><td>${o.customer}</td><td>${pkr(o.total)}</td><td><span class="status pending">${o.status}</span></td><td>${o.date}</td></tr>`).join("")}</tbody></table>`:'<p style="color:var(--mut)">No orders yet.</p>';
- $("#adminStock").innerHTML=`<table class="admin-table"><thead><tr><th>Product</th><th>Stock</th><th>Status</th></tr></thead><tbody>${P.map(p=>{const s=stock[p.id]||0;return `<tr><td><div class="stock-product"><div class="mini">${bottle(p)}</div>${p.n}</div></td><td><input class="stock-edit" type="number" min="0" value="${s}" data-stock="${p.id}"></td><td><span class="status ${s?'in':'out'}">${s?'In Stock':'Out of Stock'}</span></td></tr>`}).join("")}</tbody></table>`;
- const vals=[0,0,0,0,0,0,0],days=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];orders.forEach(o=>{const d=new Date(o.iso).getDay();vals[(d+6)%7]++});const max=Math.max(1,...vals);
- $("#ordersChart").innerHTML=vals.map((v,i)=>`<div class="chart-col"><div class="chart-bar" style="height:${Math.max(5,v/max*90)}%"></div><small>${days[i]}</small></div>`).join("");
+
+ const inStock=P.filter(p=>(stock[p.id]||0)>0).length;
+ const outStock=P.length-inStock;
+
+ $("#adOrders").textContent=orders.length;
+ $("#adProducts").textContent=P.length;
+ $("#adInStock").textContent=inStock;
+ $("#adOutStock").textContent=outStock;
+
+ $("#ringTotal").textContent=P.length;
+ $("#ringIn").textContent=inStock;
+ $("#ringOut").textContent=outStock;
+ $("#stockRing").style.setProperty("--stock-pct",(P.length?Math.round(inStock/P.length*100):0)+"%");
+
+ const counts={};
+ orders.forEach(o=>o.items.forEach(i=>counts[i.id]=(counts[i.id]||0)+i.q));
+
+ const trending=[...P]
+ .sort((a,b)=>(counts[b.id]||0)-(counts[a.id]||0)||b.f-a.f)
+ .slice(0,3);
+
+ $("#trendingList").innerHTML=trending.map((p,n)=>`
+  <div class="trend">
+   <span>${n+1}</span>
+   <div class="mini">${bottle(p)}</div>
+   <div><b>${p.n}</b><small>${counts[p.id]||0} ordered</small></div>
+  </div>
+ `).join("");
+
+ const recent=orders.slice().reverse().slice(0,5);
+
+ $("#dashboardOrders").innerHTML=recent.length
+ ? `<table class="admin-table">
+    <thead><tr><th>#</th><th>Customer</th><th>Total</th><th>Status</th><th>Date</th></tr></thead>
+    <tbody>${recent.map(o=>`
+     <tr>
+      <td>#${o.id}</td>
+      <td>${o.customer}</td>
+      <td>${pkr(o.total)}</td>
+      <td><span class="status pending">${o.status}</span></td>
+      <td>${o.date}</td>
+     </tr>`).join("")}
+    </tbody>
+   </table>`
+ : '<p style="color:var(--mut)">No orders yet.</p>';
+
+ $("#allAdminOrders").innerHTML=orders.length
+ ? `<table class="admin-table">
+    <thead>
+     <tr><th>Order</th><th>Customer</th><th>Products</th><th>Contact</th><th>City</th><th>Total</th><th>Status</th><th>Date</th></tr>
+    </thead>
+    <tbody>
+     ${orders.slice().reverse().map(o=>`
+      <tr>
+       <td>#${o.id}</td>
+       <td>${o.customer}</td>
+       <td>${o.items.map(i=>{const p=P.find(x=>x.id==i.id);return `${p?p.n:"Product"} (${i.s}ml × ${i.q})`}).join("<br>")}</td>
+       <td>${o.email||"—"}<br><small>${o.phone||"—"}</small></td>
+       <td>${o.city||"—"}</td>
+       <td>${pkr(o.total)}</td>
+       <td><span class="status pending">${o.status}</span></td>
+       <td>${o.date}</td>
+      </tr>
+     `).join("")}
+    </tbody>
+   </table>`
+ : '<p style="color:var(--mut)">No orders have been placed yet.</p>';
+
+ $("#allAdminProducts").innerHTML=`
+  <table class="admin-table">
+   <thead><tr><th>Product</th><th>Category</th><th>Price</th><th>Stock</th><th>Status</th></tr></thead>
+   <tbody>
+    ${P.map(p=>{
+     const s=stock[p.id]||0;
+     return `<tr>
+      <td><div class="product-admin-name"><div class="mini">${bottle(p)}</div><div><b>${p.n}</b><br><small>${p.top}</small></div></div></td>
+      <td>${p.c}</td>
+      <td>${pkr(price(p,100))}</td>
+      <td><input class="stock-edit" type="number" min="0" value="${s}" data-stock="${p.id}"></td>
+      <td><span class="status ${s?'in':'out'}">${s?'In Stock':'Out of Stock'}</span></td>
+     </tr>`;
+    }).join("")}
+   </tbody>
+  </table>`;
+
+ const customers=getCustomers();
+
+ $("#allAdminCustomers").innerHTML=customers.length
+ ? `<table class="admin-table">
+    <thead><tr><th>Customer</th><th>Email</th><th>Phone</th><th>City</th><th>Orders</th><th>Total Spent</th></tr></thead>
+    <tbody>
+     ${customers.map(c=>`
+      <tr>
+       <td>${c.name}</td>
+       <td>${c.email}</td>
+       <td>${c.phone}</td>
+       <td>${c.city}</td>
+       <td>${c.orders}</td>
+       <td>${pkr(c.spent)}</td>
+      </tr>
+     `).join("")}
+    </tbody>
+   </table>`
+ : '<p style="color:var(--mut)">No customers yet. Customers will appear after demo orders are placed.</p>';
+
+ const revenue=orders.reduce((a,o)=>a+(o.total||0),0);
+ const units=orders.reduce((a,o)=>a+o.items.reduce((x,i)=>x+i.q,0),0);
+ const stockUnits=Object.values(stock).reduce((a,n)=>a+(+n||0),0);
+
+ $("#reportRevenue").textContent=pkr(revenue);
+ $("#reportUnits").textContent=units;
+ $("#reportCustomers").textContent=customers.length;
+ $("#reportStockUnits").textContent=stockUnits;
+
+ const vals=[0,0,0,0,0,0,0];
+ const days=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+ orders.forEach(o=>{
+  const d=new Date(o.iso).getDay();
+  vals[(d+6)%7]++;
+ });
+ const max=Math.max(1,...vals);
+ $("#ordersChart").innerHTML=vals.map((v,i)=>`
+  <div class="chart-col">
+   <div class="chart-bar" style="height:${Math.max(5,v/max*90)}%"></div>
+   <small>${days[i]}</small>
+  </div>
+ `).join("");
+}
+
+function setAdminView(view){
+ document.querySelectorAll(".admin-view").forEach(v=>v.classList.remove("on"));
+ document.querySelectorAll("[data-admin-view]").forEach(b=>b.classList.toggle("on",b.dataset.adminView===view));
+ const page=$("#adminView-"+view);
+ if(page)page.classList.add("on");
+ $("#adminSearch").value="";
 }
 function showAdmin(){
  if(!adminLoggedIn){location.hash="login";return}
  $("main").style.display="none";$("#pdp").classList.remove("on");$("#checkoutPage").classList.remove("on");$("#loginPage").classList.remove("on");$("#adminPage").classList.add("on");
- document.querySelector("header").style.display="none";document.querySelector("footer").style.display="none";renderAdmin();window.scrollTo(0,0);
+ document.querySelector("header").style.display="none";document.querySelector("footer").style.display="none";renderAdmin();setAdminView("dashboard");window.scrollTo(0,0);
 }
 
 /* ROUTING */
@@ -2470,7 +2727,19 @@ $("#checkoutForm").addEventListener(
 
   const total=cart.reduce((sum,i)=>{const p=P.find(x=>x.id==i.id);return sum+price(p,i.s)*i.q},0);
   const customer=($("#firstName").value+" "+$("#lastName").value).trim()||"Demo Customer";
-  const order={id:1001+orders.length,customer,items:cart.map(i=>({...i})),total,status:"Pending",date:new Date().toLocaleDateString("en-GB",{day:"2-digit",month:"short",year:"numeric"}),iso:new Date().toISOString()};
+  const order={
+   id:1001+orders.length,
+   customer,
+   email:$("#email").value.trim(),
+   phone:$("#phone").value.trim(),
+   city:$("#city").value.trim(),
+   address:$("#address").value.trim(),
+   items:cart.map(i=>({...i})),
+   total,
+   status:"Pending",
+   date:new Date().toLocaleDateString("en-GB",{day:"2-digit",month:"short",year:"numeric"}),
+   iso:new Date().toISOString()
+  };
   orders.push(order);
   order.items.forEach(i=>stock[i.id]=Math.max(0,(stock[i.id]||0)-i.q));
   saveAdminData();
@@ -2487,21 +2756,60 @@ $("#checkoutForm").addEventListener(
 /* ADMIN EVENTS */
 $("#adminLoginForm").addEventListener("submit",e=>{
  e.preventDefault();
- const email=$("#adminEmail").value.trim().toLowerCase(),password=$("#adminPassword").value;
- if(email===ADMIN_EMAIL.toLowerCase()&&password===ADMIN_PASSWORD){
-  adminLoggedIn=true;sessionStorage.setItem("auraAdminLoggedIn","yes");$("#loginError").classList.remove("on");$("#adminLoginForm").reset();location.hash="admin";
- }else $("#loginError").classList.add("on");
-});
-$("#showPassword").addEventListener("click",()=>{
- const i=$("#adminPassword"),show=i.type==="text";i.type=show?"password":"text";$("#showPassword").textContent=show?"Show":"Hide";
-});
-document.addEventListener("change",e=>{if(e.target.matches("[data-stock]")){stock[e.target.dataset.stock]=Math.max(0,+e.target.value||0);saveAdminData();renderAdmin()}});
-document.addEventListener("click",e=>{
- if(e.target.id==="adminLogout"){adminLoggedIn=false;sessionStorage.removeItem("auraAdminLoggedIn");location.hash="login"}
- const j=e.target.closest("[data-admin-jump]");if(j){document.querySelector(j.dataset.adminJump==="orders"?"#adminOrdersBlock":"#adminStockBlock")?.scrollIntoView({behavior:"smooth"})}
-});
-$("#adminSearch").addEventListener("input",e=>{const q=e.target.value.toLowerCase();document.querySelectorAll("#adminOrders tbody tr,#adminStock tbody tr").forEach(r=>r.style.display=r.textContent.toLowerCase().includes(q)?"":"none")});
+ const email=$("#adminEmail").value.trim().toLowerCase();
+ const password=$("#adminPassword").value;
 
+ if(email===ADMIN_EMAIL.toLowerCase()&&password===ADMIN_PASSWORD){
+  adminLoggedIn=true;
+  sessionStorage.setItem("auraAdminLoggedIn","yes");
+  $("#loginError").classList.remove("on");
+  $("#adminLoginForm").reset();
+  location.hash="admin";
+ }else{
+  $("#loginError").classList.add("on");
+ }
+});
+
+$("#showPassword").addEventListener("click",()=>{
+ const i=$("#adminPassword");
+ const show=i.type==="text";
+ i.type=show?"password":"text";
+ $("#showPassword").textContent=show?"Show":"Hide";
+});
+
+document.addEventListener("change",e=>{
+ if(e.target.matches("[data-stock]")){
+  stock[e.target.dataset.stock]=Math.max(0,+e.target.value||0);
+  saveAdminData();
+  renderAdmin();
+  renderGrid();
+  $("#featured").innerHTML=P.filter(p=>p.f).map(card).join("");
+  toast("Stock updated");
+ }
+});
+
+document.addEventListener("click",e=>{
+ if(e.target.id==="adminLogout"){
+  adminLoggedIn=false;
+  sessionStorage.removeItem("auraAdminLoggedIn");
+  location.hash="login";
+  return;
+ }
+
+ const view=e.target.closest("[data-admin-view]");
+ if(view){
+  setAdminView(view.dataset.adminView);
+ }
+});
+
+$("#adminSearch").addEventListener("input",e=>{
+ const q=e.target.value.toLowerCase();
+ const active=document.querySelector(".admin-view.on");
+ if(!active)return;
+ active.querySelectorAll("tbody tr").forEach(r=>{
+  r.style.display=r.textContent.toLowerCase().includes(q)?"":"none";
+ });
+});
 /* START */
 
 init();
