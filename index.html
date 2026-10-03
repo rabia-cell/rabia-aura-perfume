@@ -1514,6 +1514,8 @@ footer a:hover{color:var(--gold-l)}
 
 <script>
 
+const API_URL="http://localhost:3000";
+
 const SZ={
  30:.55,
  50:.8,
@@ -1715,8 +1717,49 @@ const ADMIN_EMAIL="admin@auraperfumes.com";
 const ADMIN_PASSWORD="AuraAdmin123";
 let adminLoggedIn=sessionStorage.getItem("auraAdminLoggedIn")==="yes";
 let stock=JSON.parse(localStorage.getItem("auraStock")||"null")||{1:15,2:0,3:8,4:3,5:0,6:7,7:5,8:11};
-let orders=JSON.parse(localStorage.getItem("auraOrders")||"[]");
-const saveAdminData=()=>{localStorage.setItem("auraStock",JSON.stringify(stock));localStorage.setItem("auraOrders",JSON.stringify(orders))};
+let orders=[];
+const saveAdminData=()=>{localStorage.setItem("auraStock",JSON.stringify(stock))};
+
+
+async function loadBackendProducts(){
+ try{
+  const res=await fetch(API_URL+"/api/products");
+  if(!res.ok)throw new Error("Products API failed");
+  const data=await res.json();
+  data.forEach(bp=>{
+   const p=P.find(x=>x.id==+bp.id);
+   if(!p)return;
+   p.n=bp.name;
+   p.c=bp.category;
+   p.d=bp.description;
+   p.sizes=bp.sizes||[];
+   const hundred=p.sizes.find(x=>String(x.size).replace(/\s/g,"")==="100ml");
+   if(hundred)p.p=+hundred.price;
+   stock[p.id]=p.sizes.reduce((m,x)=>Math.max(m,+x.stock||0),0);
+  });
+ }catch(err){
+  console.error("Could not load backend products:",err);
+ }
+}
+
+async function loadBackendOrders(){
+ try{
+  const res=await fetch(API_URL+"/api/orders");
+  if(!res.ok)throw new Error("Orders API failed");
+  const data=await res.json();
+  orders=data.map(o=>({
+   id:o.id,
+   customer:[o.first_name,o.last_name].filter(Boolean).join(" ")||"Customer",
+   email:o.email||"", phone:o.phone||"", city:o.city||"", address:o.address||"",
+   total:+o.total||0, status:o.status||"Pending",
+   date:new Date(o.created_at).toLocaleDateString("en-GB",{day:"2-digit",month:"short",year:"numeric"}),
+   iso:o.created_at,
+   items:(o.items||[]).map(i=>({id:+i.product_id,s:parseInt(i.size),q:+i.quantity||1,product_name:i.product_name,price:+i.price||0}))
+  }));
+ }catch(err){
+  console.error("Could not load backend orders:",err);
+ }
+}
 
 
 
@@ -2406,8 +2449,9 @@ function setAdminView(view){
  if(page)page.classList.add("on");
  $("#adminSearch").value="";
 }
-function showAdmin(){
+async function showAdmin(){
  if(!adminLoggedIn){location.hash="login";return}
+ await loadBackendOrders();
  $("main").style.display="none";$("#pdp").classList.remove("on");$("#checkoutPage").classList.remove("on");$("#loginPage").classList.remove("on");$("#adminPage").classList.add("on");
  document.querySelector("header").style.display="none";document.querySelector("footer").style.display="none";renderAdmin();setAdminView("dashboard");window.scrollTo(0,0);
 }
@@ -2713,44 +2757,51 @@ $("#q").addEventListener(
 
 $("#checkoutForm").addEventListener(
  "submit",
- e=>{
+ async e=>{
 
   e.preventDefault();
 
   if(!cart.length){
-
    toast("Your cart is empty");
-
    return;
-
   }
 
   const total=cart.reduce((sum,i)=>{const p=P.find(x=>x.id==i.id);return sum+price(p,i.s)*i.q},0);
-  const customer=($("#firstName").value+" "+$("#lastName").value).trim()||"Demo Customer";
-  const order={
-   id:1001+orders.length,
-   customer,
+  const payload={
+   first_name:$("#firstName").value.trim(),
+   last_name:$("#lastName").value.trim(),
    email:$("#email").value.trim(),
    phone:$("#phone").value.trim(),
-   city:$("#city").value.trim(),
    address:$("#address").value.trim(),
-   items:cart.map(i=>({...i})),
+   city:$("#city").value.trim(),
    total,
-   status:"Pending",
-   date:new Date().toLocaleDateString("en-GB",{day:"2-digit",month:"short",year:"numeric"}),
-   iso:new Date().toISOString()
+   items:cart.map(i=>{
+    const p=P.find(x=>x.id==i.id);
+    return {product_id:i.id,product_name:p.n,size:i.s+"ml",price:price(p,i.s),quantity:i.q};
+   })
   };
-  orders.push(order);
-  order.items.forEach(i=>stock[i.id]=Math.max(0,(stock[i.id]||0)-i.q));
-  saveAdminData();
-  cart=[];renderCart();renderCheckout();
-  $("#orderSuccess").style.display="block";
-  $("#orderSuccess").innerHTML="<strong>Demo order #"+order.id+" complete.</strong><br>It is now visible in the Admin Dashboard. No payment was taken.";
-  $("#orderSuccess").scrollIntoView({behavior:"smooth",block:"center"});
+
+  try{
+   const res=await fetch(API_URL+"/api/orders",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify(payload)
+   });
+   const data=await res.json();
+   if(!res.ok)throw new Error(data.error||"Order failed");
+
+   cart=[];renderCart();renderCheckout();
+   await loadBackendOrders();
+   $("#orderSuccess").style.display="block";
+   $("#orderSuccess").innerHTML="<strong>Demo order #"+data.order_id+" complete.</strong><br>It is now saved in the database and visible in the Admin Dashboard. No payment was taken.";
+   $("#orderSuccess").scrollIntoView({behavior:"smooth",block:"center"});
+  }catch(err){
+   console.error(err);
+   toast("Could not place order. Please try again.");
+  }
 
  }
 );
-
 
 
 /* ADMIN EVENTS */
@@ -2812,11 +2863,13 @@ $("#adminSearch").addEventListener("input",e=>{
 });
 /* START */
 
-init();
-
-renderCart();
-
-route();
+(async function start(){
+ await loadBackendProducts();
+ init();
+ renderCart();
+ await loadBackendOrders();
+ route();
+})();
 
 </script>
 
