@@ -977,7 +977,7 @@ footer a:hover{color:var(--gold-l)}
  }
 }
 </style>
-<script src="https://cdn.jsdelivr.net/npm/@supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
@@ -2931,15 +2931,6 @@ $("#adminSearch").addEventListener("input",e=>{
   r.style.display=r.textContent.toLowerCase().includes(q)?"":"none";
  });
 });
-/* START */
-
-(async function start(){
- await loadBackendProducts();
- init();
- renderCart();
- await loadBackendOrders();
- route();
-})();
 
 </script>
 <script>
