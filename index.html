@@ -2260,15 +2260,16 @@ const mp=()=>{
 
  if(el){
 
+  const selectedSize=parseInt(cur.s,10);
+
   el.textContent=
-  pkr(
-   price(cur.p,cur.s)*cur.q
-  );
+   pkr(
+    price(cur.p,selectedSize)*cur.q
+   );
 
  }
 
 };
-
 
 /* CHECKOUT */
 
