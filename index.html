@@ -2899,18 +2899,26 @@ $("#showPassword").addEventListener("click",()=>{
  i.type=show?"password":"text";
  $("#showPassword").textContent=show?"Show":"Hide";
 });
+document.addEventListener("change", async e=>{
+  if(e.target.matches("[data-stock]")){
+    const productId = +e.target.dataset.stock;
+    const newStock = Math.max(0, +e.target.value || 0);
 
-document.addEventListener("change",e=>{
- if(e.target.matches("[data-stock]")){
-  stock[e.target.dataset.stock]=Math.max(0,+e.target.value||0);
-  saveAdminData();
-  renderAdmin();
-  renderGrid();
-  $("#featured").innerHTML=P.filter(p=>p.f).map(card).join("");
-  toast("Stock updated");
- }
+    const { error } = await auraDB
+      .from("products_size")
+      .update({ stock: newStock })
+      .eq("product_id", productId);
+
+    if(error){
+      console.error("Stock update error:", error);
+      toast("Stock update failed");
+      return;
+    }
+
+    stock[productId] = newStock;
+    toast("Stock updated");
+  }
 });
-
 document.addEventListener("click",e=>{
  if(e.target.id==="adminLogout"){
   adminLoggedIn=false;
