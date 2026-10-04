@@ -1831,11 +1831,10 @@ function card(p){
 
    <small>${p.top}</small>
 
-   ${available
-     ? `<small style="color:#246a36">In Stock · ${stock[p.id]} available</small>`
-     : `<span class="out-badge">Out of Stock</span>`
-   }
-
+${available
+  ? `<small style="color:#246a36">In Stock</small>`
+  : `<span class="out-badge">Out of Stock</span>`
+}
    <div class="row">
     <span class="price">${pkr(price(p,100))}</span>
     <button class="add" data-a="${p.id}" ${available?'':'disabled'}>${available?'Add to cart':'Out of Stock'}</button>
