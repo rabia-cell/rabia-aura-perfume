@@ -2191,14 +2191,13 @@ function showProduct(id){
 <div class="sizes">
 
  ${[30,50,100].map(s=>{
-   const variant=(p.sizes||[]).find(
-     v=>String(v.size).replace(/\s/g,"").toLowerCase()===`${s}ml`
-   );
-
+const variant=product?.sizes?.find(
+  v=>parseInt(String(v.size),10)===Number(s)
+);
    const sizeStock=Number(variant?.stock)||0;
 
    return `
-    <button class="sz ${s==50?'on':''}" data-s="${s}ml">
+    <button class="sz ${s==50?'on':''}" data-s="${s}">
       ${s} ml<br>
       <small>${sizeStock>0 ? sizeStock+" in stock" : "Out of stock"}</small>
     </button>
