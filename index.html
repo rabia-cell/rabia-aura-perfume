@@ -2163,17 +2163,24 @@ function showProduct(id){
 
    <div>Size</div>
 
-   <div class="sizes">
+<div class="sizes">
 
-    ${[30,50,100].map(s=>
+ ${[30,50,100].map(s=>{
+   const variant=(p.sizes||[]).find(
+     v=>String(v.size).replace(/\s/g,"").toLowerCase()===`${s}ml`
+   );
 
-     `<button class="sz ${s==50?'on':''}" data-s="${s}">
-      ${s} ml
-     </button>`
+   const sizeStock=Number(variant?.stock)||0;
 
-    ).join("")}
+   return `
+    <button class="sz ${s==50?'on':''}" data-s="${s}ml">
+      ${s} ml<br>
+      <small>${sizeStock>0 ? sizeStock+" in stock" : "Out of stock"}</small>
+    </button>
+   `;
+ }).join("")}
 
-   </div>
+</div>
 
    <div class="price" id="mp" style="font-size:1.7rem;margin-bottom:16px"></div>
 
