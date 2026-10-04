@@ -2428,23 +2428,53 @@ function renderAdmin(){
    </table>`
  : '<p style="color:var(--mut)">No orders have been placed yet.</p>';
 
- $("#allAdminProducts").innerHTML=`
-  <table class="admin-table">
-   <thead><tr><th>Product</th><th>Category</th><th>Price</th><th>Stock</th><th>Status</th></tr></thead>
-   <tbody>
-    ${P.map(p=>{
-     const s=stock[p.id]||0;
-     return `<tr>
-      <td><div class="product-admin-name"><div class="mini">${bottle(p)}</div><div><b>${p.n}</b><br><small>${p.top}</small></div></div></td>
-      <td>${p.c}</td>
-      <td>${pkr(price(p,100))}</td>
-      <td><input class="stock-edit" type="number" min="0" value="${s}" data-stock="${p.id}"></td>
-      <td><span class="status ${s?'in':'out'}">${s?'In Stock':'Out of Stock'}</span></td>
-     </tr>`;
-    }).join("")}
-   </tbody>
-  </table>`;
-
+$("#allAdminProducts").innerHTML=`
+<table class="admin-table">
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Category</th>
+      <th>Size</th>
+      <th>Price</th>
+      <th>Stock</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    ${P.flatMap(p=>
+      (p.sizes || []).map((v,index)=>`
+        <tr>
+          <td>
+            ${index===0
+              ? `<div class="product-admin-name">
+                   <div class="mini">${bottle(p)}</div>
+                   <div><b>${p.n}</b></div>
+                 </div>`
+              : ""
+            }
+          </td>
+          <td>${index===0 ? p.c : ""}</td>
+          <td>${v.size}</td>
+          <td>${pkr(Number(v.price)||0)}</td>
+          <td>
+            <input
+              class="stock-edit"
+              type="number"
+              min="0"
+              value="${Number(v.stock)||0}"
+              data-product-id="${p.id}"
+              data-size-id="${v.id}">
+          </td>
+          <td>
+            <span class="status ${(Number(v.stock)||0)>0?'in':'out'}">
+              ${(Number(v.stock)||0)>0?'In Stock':'Out of Stock'}
+            </span>
+          </td>
+        </tr>
+      `)
+    ).join("")}
+  </tbody>
+</table>`;
  const customers=getCustomers();
 
  $("#allAdminCustomers").innerHTML=customers.length
@@ -2900,14 +2930,15 @@ $("#showPassword").addEventListener("click",()=>{
  $("#showPassword").textContent=show?"Show":"Hide";
 });
 document.addEventListener("change", async e=>{
-  if(e.target.matches("[data-stock]")){
-    const productId = +e.target.dataset.stock;
-    const newStock = Math.max(0, +e.target.value || 0);
+  if(e.target.matches(".stock-edit")){
+    const productId = Number(e.target.dataset.productId);
+    const sizeId = Number(e.target.dataset.sizeId);
+    const newStock = Math.max(0, Number(e.target.value) || 0);
 
     const { error } = await auraDB
       .from("products_size")
       .update({ stock: newStock })
-      .eq("product_id", productId);
+      .eq("id", sizeId);
 
     if(error){
       console.error("Stock update error:", error);
@@ -2915,8 +2946,20 @@ document.addEventListener("change", async e=>{
       return;
     }
 
-    stock[productId] = newStock;
+    const product = P.find(p=>p.id===productId);
+    const variant = product?.sizes?.find(v=>Number(v.id)===sizeId);
+
+    if(variant) variant.stock = newStock;
+
+    stock[productId] = Math.max(
+      ...(product?.sizes || []).map(v=>Number(v.stock)||0),
+      0
+    );
+
     toast("Stock updated");
+    renderAdmin();
+    renderGrid();
+    $("#featured").innerHTML=P.filter(p=>p.f).map(card).join("");
   }
 });
 document.addEventListener("click",e=>{
