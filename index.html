@@ -2890,7 +2890,28 @@ const { error:itemsError } = await auraDB
   .insert(items);
 
 if(itemsError) throw itemsError;
+for(const item of cart){
+  const product = P.find(p => p.id === Number(item.id));
+  const variant = product?.sizes?.find(
+    v => String(v.size).replace(/\s/g,"") === String(item.size).replace(/\s/g,"")
+  );
 
+  if(!variant) continue;
+
+  const newStock = Math.max(
+    0,
+    Number(variant.stock) - Number(item.quantity)
+  );
+
+  const { error: stockError } = await auraDB
+    .from("products_size")
+    .update({ stock: newStock })
+    .eq("id", variant.id);
+
+  if(stockError) throw stockError;
+
+  variant.stock = newStock;
+}
 const data = { order_id: orderData.id };
    cart=[];renderCart();renderCheckout();
    await loadBackendOrders();
