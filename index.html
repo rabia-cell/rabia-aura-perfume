@@ -2950,6 +2950,14 @@ $("#adminSearch").addEventListener("input",e=>{
     SUPABASE_URL,
     SUPABASE_KEY
   );
+
+(async function start(){
+  await loadBackendProducts();
+  init();
+  renderCart();
+  await loadBackendOrders();
+  route();
+})();
 </script>
 </body>
 </html>
