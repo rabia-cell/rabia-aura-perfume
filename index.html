@@ -1641,8 +1641,17 @@ const $=s=>document.querySelector(s);
 
 const pkr=n=>"PKR "+n.toLocaleString("en-US");
 
-const price=(p,s)=>Math.round(p.p*SZ[s]/100)*100;
+const price=(p,s)=>{
+  const prices = p.sizePrices || {};
 
+  const exact = prices[Number(s)];
+
+  if(Number(exact) > 0){
+    return Number(exact);
+  }
+
+  return Number(p.p) || 0;
+};
 
 /* BOTTLE */
 
@@ -1746,12 +1755,29 @@ async function loadBackendProducts(){
       p.d = bp.description;
       p.sizes = bp.products_size || [];
 
-      const hundred = p.sizes.find(
-        x=>String(x.size).replace(/\s/g,"")==="100ml"
-      );
+const size30 = p.sizes.find(
+  x => String(x.size).replace(/\s/g,"").toLowerCase() === "30ml"
+);
 
-      if(hundred) p.p = Number(hundred.price);
+const size50 = p.sizes.find(
+  x => String(x.size).replace(/\s/g,"").toLowerCase() === "50ml"
+);
 
+const size100 = p.sizes.find(
+  x => String(x.size).replace(/\s/g,"").toLowerCase() === "100ml"
+);
+
+p.sizePrices = {
+  30: Number(size30?.price) || 0,
+  50: Number(size50?.price) || 0,
+  100: Number(size100?.price) || 0
+};
+
+p.p =
+  p.sizePrices[50] ||
+  p.sizePrices[30] ||
+  p.sizePrices[100] ||
+  0;
       stock[p.id] = p.sizes.reduce(
         (m,x)=>Math.max(m,Number(x.stock)||0),
         0
