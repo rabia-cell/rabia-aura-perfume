@@ -809,9 +809,6 @@ details p{
  border:1px solid var(--gold);
  background:var(--sand)
 }
-
-/* FOOTER */
-
 footer{
  background:var(--ink);
  color:#cfc6b4;
@@ -980,6 +977,7 @@ footer a:hover{color:var(--gold-l)}
  }
 }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase-js@2"></script>
 </head>
 
 <body>
@@ -2872,6 +2870,14 @@ $("#adminSearch").addEventListener("input",e=>{
 })();
 
 </script>
+<script>
+  const SUPABASE_URL = "https://ryexnfglsiwdqcdlfpqu.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_hEDhXA-IH_LZ96-9K2d0Vw_9Q_TAdYB";
 
+  const auraDB = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+</script>
 </body>
 </html>
