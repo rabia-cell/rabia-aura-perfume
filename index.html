@@ -1718,26 +1718,51 @@ let stock=JSON.parse(localStorage.getItem("auraStock")||"null")||{1:15,2:0,3:8,4
 let orders=[];
 const saveAdminData=()=>{localStorage.setItem("auraStock",JSON.stringify(stock))};
 
-
 async function loadBackendProducts(){
- try{
-  const res=await fetch(API_URL+"/api/products");
-  if(!res.ok)throw new Error("Products API failed");
-  const data=await res.json();
-  data.forEach(bp=>{
-   const p=P.find(x=>x.id==+bp.id);
-   if(!p)return;
-   p.n=bp.name;
-   p.c=bp.category;
-   p.d=bp.description;
-   p.sizes=bp.sizes||[];
-   const hundred=p.sizes.find(x=>String(x.size).replace(/\s/g,"")==="100ml");
-   if(hundred)p.p=+hundred.price;
-   stock[p.id]=p.sizes.reduce((m,x)=>Math.max(m,+x.stock||0),0);
-  });
- }catch(err){
-  console.error("Could not load backend products:",err);
- }
+  try{
+    const { data, error } = await auraDB
+      .from("Products")
+      .select(`
+        id,
+        name,
+        category,
+        description,
+        products_size (
+          id,
+          size,
+          price,
+          stock
+        )
+      `);
+
+    if(error) throw error;
+
+    data.forEach(bp=>{
+      const p = P.find(x=>x.id===Number(bp.id));
+      if(!p) return;
+
+      p.n = bp.name;
+      p.c = bp.category;
+      p.d = bp.description;
+      p.sizes = bp.products_size || [];
+
+      const hundred = p.sizes.find(
+        x=>String(x.size).replace(/\s/g,"")==="100ml"
+      );
+
+      if(hundred) p.p = Number(hundred.price);
+
+      stock[p.id] = p.sizes.reduce(
+        (m,x)=>Math.max(m,Number(x.stock)||0),
+        0
+      );
+    });
+
+    console.log("Products loaded from Supabase:", data);
+
+  }catch(err){
+    console.error("Could not load Supabase products:", err);
+  }
 }
 
 async function loadBackendOrders(){
