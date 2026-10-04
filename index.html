@@ -1960,43 +1960,49 @@ function toast(m){
 
 
 /* CART */
-
 function addCart(id,s,q){
 
- const available=stock[id]||0;
- const already=cart.filter(x=>x.id==id).reduce((a,i)=>a+i.q,0);
+ const product=P.find(p=>p.id===Number(id));
+
+ const variant=product?.sizes?.find(
+  v=>String(v.size).replace(/\s/g,"")===String(s).replace(/\s/g,"")
+ );
+
+ if(!variant){
+  toast("Size not available");
+  return;
+ }
+
+ const available=Number(variant.stock)||0;
+
+ const k=id+"-"+s;
+ const existing=cart.find(x=>x.k===k);
+ const already=existing ? existing.q : 0;
 
  if(available<=0){
-  toast("This perfume is out of stock");
+  toast(s+" is out of stock");
   return;
  }
 
  if(already+q>available){
-  toast("Only "+available+" unit(s) available");
+  toast("Only "+available+" unit(s) available for "+s);
   return;
  }
 
- const k=id+"-"+s;
-
- const i=cart.find(x=>x.k==k);
-
- i
- ?
- i.q+=q
- :
- cart.push({
-  k,
-  id,
-  s,
-  q
- });
+ if(existing){
+  existing.q+=q;
+ }else{
+  cart.push({
+   k,
+   id,
+   s,
+   q
+  });
+ }
 
  renderCart();
-
  toast("Added to cart");
-
 }
-
 
 function renderCart(){
 
