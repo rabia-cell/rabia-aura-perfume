@@ -1766,28 +1766,50 @@ async function loadBackendProducts(){
 }
 
 async function loadBackendOrders(){
- try{
-  const res=await fetch(API_URL+"/api/orders");
-  if(!res.ok)throw new Error("Orders API failed");
-  const data=await res.json();
-  orders=data.map(o=>({
-   id:o.id,
-   customer:[o.first_name,o.last_name].filter(Boolean).join(" ")||"Customer",
-   email:o.email||"", phone:o.phone||"", city:o.city||"", address:o.address||"",
-   total:+o.total||0, status:o.status||"Pending",
-   date:new Date(o.created_at).toLocaleDateString("en-GB",{day:"2-digit",month:"short",year:"numeric"}),
-   iso:o.created_at,
-   items:(o.items||[]).map(i=>({id:+i.product_id,s:parseInt(i.size),q:+i.quantity||1,product_name:i.product_name,price:+i.price||0}))
-  }));
- }catch(err){
-  console.error("Could not load backend orders:",err);
- }
+  try{
+    const { data, error } = await auraDB
+      .from("orders")
+      .select(`
+        *,
+        order_items (
+          product_id,
+          product_name,
+          size,
+          price,
+          quantity
+        )
+      `)
+      .order("created_at", { ascending: false });
+
+    if(error) throw error;
+
+    orders = data.map(o=>({
+      id:o.id,
+      customer:[o.first_name,o.last_name].filter(Boolean).join(" ") || "Customer",
+      email:o.email || "",
+      phone:o.phone || "",
+      city:o.city || "",
+      address:o.address || "",
+      total:+o.total || 0,
+      status:o.status || "Pending",
+      date:new Date(o.created_at).toLocaleDateString(
+        "en-GB",
+        {day:"2-digit",month:"short",year:"numeric"}
+      ),
+      iso:o.created_at,
+      items:(o.order_items || []).map(i=>({
+        id:+i.product_id,
+        s:parseInt(i.size),
+        q:+i.quantity || 1,
+        product_name:i.product_name,
+        price:+i.price || 0
+      }))
+    }));
+
+  }catch(err){
+    console.error("Could not load Supabase orders:",err);
+  }
 }
-
-
-
-/* PRODUCT CARD */
-
 function card(p){
 
  const available=(stock[p.id]||0)>0;
@@ -2805,14 +2827,39 @@ $("#checkoutForm").addEventListener(
   };
 
   try{
-   const res=await fetch(API_URL+"/api/orders",{
-    method:"POST",
-    headers:{"Content-Type":"application/json"},
-    body:JSON.stringify(payload)
-   });
-   const data=await res.json();
-   if(!res.ok)throw new Error(data.error||"Order failed");
+const { data:orderData, error:orderError } = await auraDB
+  .from("orders")
+  .insert({
+    first_name: payload.first_name,
+    last_name: payload.last_name,
+    email: payload.email,
+    phone: payload.phone,
+    address: payload.address,
+    city: payload.city,
+    total: payload.total,
+    status: "Pending"
+  })
+  .select()
+  .single();
 
+if(orderError) throw orderError;
+
+const items = payload.items.map(item=>({
+  order_id: orderData.id,
+  product_id: item.product_id,
+  product_name: item.product_name,
+  size: item.size,
+  price: item.price,
+  quantity: item.quantity
+}));
+
+const { error:itemsError } = await auraDB
+  .from("order_items")
+  .insert(items);
+
+if(itemsError) throw itemsError;
+
+const data = { order_id: orderData.id };
    cart=[];renderCart();renderCheckout();
    await loadBackendOrders();
    $("#orderSuccess").style.display="block";
